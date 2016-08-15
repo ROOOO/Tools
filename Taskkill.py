@@ -14,7 +14,4 @@ if __name__ == '__main__':
   tasks = sys.argv
   if sys.argv[1] == '1':
     tasks = ['conhost*', 'powershell*']
-  for name in tasks:
-    print name
-    os.popen('start taskkill /f /im ' + name)
-
+  u.killProcess(tasks)

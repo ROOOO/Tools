@@ -67,6 +67,9 @@ class util:
             return os.popen(path).read()
         return subprocess.call(path, shell = False)
 
+    def sleep(self, s):
+        time.sleep(s)
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -82,6 +85,7 @@ class WebElement:
         try:
             if enum == 'name':
                 self.element = self.driver.find_element_by_name(arg)
+                # print self.element
             elif enum == 'xpath':
                 self.element = self.driver.find_element_by_xpath(arg)
             elif enum == 'id':
@@ -89,26 +93,36 @@ class WebElement:
             elif enum == 'tagname':
                 self.element = self.driver.find_element_by_tag_name(arg)
         except:
-            self.driver.Quit()
+            pass
+            # self.driver.Quit()
+        return self
     def sendKeys(self, s):
         self.element.send_keys(s)
+        return self
 
 class Web:
     CU = util()
     def __init__(self):
+        self.initDriver()
+
+    def initDriver(self):
         sysstr = platform.system()
         if sysstr == 'Linux':
             self.__class__.CU.runProcess('chmod +x ./phantomjs', usepopen = True)
             # self.driver = webdriver.PhantomJS(os.path.join(os.path.split(os.path.realpath(__file__))[0], 'phantomjs'))
             self.driver = webdriver.Chrome()
         elif sysstr == 'Windows':
-            self.driver = webdriver.PhantomJS('./phantomjs_win.exe')
-            # self.driver = webdriver.Chrome()
+            # self.driver = webdriver.PhantomJS('./Web/phantomjs_win.exe')
+            self.driver = webdriver.Chrome('./Web/chromedriver.exe')
         elif sysstr == 'Darwin':
             # self.__class__.CU.runProcess('chmod +x ./phantomjs', usepopen = True)
             # self.driver = webdriver.PhantomJS(os.path.join(os.path.split(os.path.realpath(__file__))[0], 'phantomjs'))
-            self.driver = webdriver.Chrome()
+            self.driver = webdriver.Chrome()        
         self.wait = WebDriverWait(self.driver, 30)
+
+    @property
+    def driver(self):
+        return self.driver
 
     def Goto(self, page):
         page = page.lower()
@@ -129,11 +143,11 @@ class Web:
         if condition == 'invisibility_of_element_located':
             cmd = EC.invisibility_of_element_located
             if enum == 'xpath':
-                self.wait.until(cmd(By.XPATH, arg))
+                return self.wait.until(cmd(By.XPATH, arg))
         elif condition == 'element_to_be_clickable':
             cmd = EC.element_to_be_clickable
             if enum == 'xpath':
-                self.wait.until(cmd(By.XPATH, arg))
+                return self.wait.until(cmd(By.XPATH, arg))
 
     def ExecScript(self, script):
         self.driver.execute_script(script)

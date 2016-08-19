@@ -59,9 +59,9 @@ class util:
             return
         for name in names:
             print name
-            subprocess.call('taskkill /f /im ' + name, shell = False)
+            os.system('start taskkill /f /im ' + name)
 
     def runProcess(self, path, usepopen = False):
         if usepopen:
             return os.popen(path).read()
-        subprocess.call(path, shell = False)
+        return subprocess.call(path, shell = False)

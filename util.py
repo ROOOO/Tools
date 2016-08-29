@@ -10,7 +10,7 @@ class settings:
         self.projectPath = ''
         self.serverFilesPath = 'D:\\XMZ\\bo2_svr\\svr\\'
         self.serverToosPath = 'D:\\XMZ\\bo2_svr\\tools\\'
-        self.mySQL = 'mysql -h192.168.6.55 -uroot -ppixeldb2015 -Dxmz_homeKing -e source '
+        self.mySQL = 'mysql -h192.168.6.55 -uroot -ppixeldb2015 -Dxmz_homeKing -e "source '
 
     def getPath(self, name):
         if name == 'project':
@@ -20,8 +20,8 @@ class settings:
         elif name == 'serverTools':
             return self.serverToosPath
 
-    def getMySQLCMD(self):
-        return self.mySQL
+    def getMySQLCMD(self, file):
+        return self.mySQL + file + '"'
 
 class util:
     def __init__(self):

@@ -22,7 +22,7 @@ if __name__ == '__main__':
     print 'At least one arg.\n'
     print '1 Daily Refresh.\n2 r_e.\n3 r_s.\n4 Reset database.\n'
     exit()
-    
+
   u.killProcess(['node*', 'exebox*'])
   u.runProcess('explorer.exe ' + s.getPath('server'))
   raw_input()
@@ -39,8 +39,8 @@ if __name__ == '__main__':
           file = os.path.join(dirPath, fileName)
           t = round(u.getTime('c', file), 3)
           if latest < t:
-            print s.getMySQLCMD() + file
-            u.runProcess(s.getMySQLCMD() + file)
+            print s.getMySQLCMD(file)
+            u.runProcess(s.getMySQLCMD(file))
     u.writeFile(f, str(current))
     r_s()
     r_e()

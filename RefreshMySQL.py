@@ -22,10 +22,11 @@ if __name__ == '__main__':
     print 'At least one arg.\n'
     print '1 Daily Refresh.\n2 r_e.\n3 r_s.\n4 Reset database.\n'
     exit()
+    
+  u.killProcess(['node*', 'exebox*'])
+  u.runProcess('explorer.exe ' + s.getPath('server'))
+  raw_input()
   if sys.argv[1] == '1':
-    u.killProcess(['node*', 'exebox*'])
-    u.runProcess('explorer.exe ' + s.getPath('server'))
-    raw_input()
     f = os.path.join(s.getPath('server'), 'daily.txt')
     try:
       latest = round(float(u.readFile(f)), 3)

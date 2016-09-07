@@ -26,13 +26,13 @@ if __name__ == '__main__':
   u.killProcess(['node*', 'exebox*'])
   u.runProcess('explorer.exe ' + s.getPath('server'))
   raw_input()
+  f = os.path.join(s.getPath('server'), 'daily.txt')
+  current = time.time()
   if sys.argv[1] == '1':
-    f = os.path.join(s.getPath('server'), 'daily.txt')
     try:
       latest = round(float(u.readFile(f)), 3)
     except:
       latest = 0
-    current = time.time()
     for dirPath, dirNames, fileNames in u.walkPath(os.path.join(s.getPath('server'), 'sql', 'home')):
       for fileName in fileNames:
         if re.match(r'fix', os.path.splitext(fileName)[0]):
@@ -51,3 +51,4 @@ if __name__ == '__main__':
     r_s()
   elif sys.argv[1] == '4':
     reset()
+    u.writeFile(f, str(current))

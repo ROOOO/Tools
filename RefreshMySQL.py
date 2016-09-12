@@ -23,12 +23,12 @@ if __name__ == '__main__':
     print '1 Daily Refresh.\n2 r_e.\n3 r_s.\n4 Reset database.\n'
     exit()
 
-  u.killProcess(['node*', 'exebox*'])
   u.runProcess('explorer.exe ' + s.getPath('server'))
   raw_input()
   f = os.path.join(s.getPath('server'), 'daily.txt')
   current = time.time()
   if sys.argv[1] == '1':
+    u.killProcess(['node*', 'exebox*'])
     try:
       latest = round(float(u.readFile(f)), 3)
     except:
@@ -37,7 +37,7 @@ if __name__ == '__main__':
       for fileName in fileNames:
         if re.match(r'fix', os.path.splitext(fileName)[0]):
           file = os.path.join(dirPath, fileName)
-          t = round(u.getTime('c', file), 3)
+          t = round(u.getTime('m', file), 3)
           if latest < t:
             print s.getMySQLCMD(file)
             u.runProcess(s.getMySQLCMD(file))
@@ -50,5 +50,6 @@ if __name__ == '__main__':
   elif sys.argv[1] == '3':
     r_s()
   elif sys.argv[1] == '4':
+    u.killProcess(['node*', 'exebox*'])
     reset()
     u.writeFile(f, str(current))

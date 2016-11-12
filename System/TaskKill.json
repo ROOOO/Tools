@@ -1,0 +1,6 @@
+{
+	"Default" : {
+		"1" : "conhost*",
+		"2" : "powershell*"
+	}
+}

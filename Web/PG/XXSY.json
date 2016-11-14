@@ -1,15 +1,40 @@
 {
+	"Min" : 41234,
 	"SVNPath" : {
 		"Trunk"		: "svn://bigsvr/xx/trunk",
-		"branch"	: "svn://bigsvr/xx/branches/branch_201604"
+		"Branch"	: "svn://bigsvr/xx/branches/branch_201604"
 	},
 	"Driver" : {
 		"1" : "PhantomJS",
-		"2" : "Chrome",
-		"use" : "1"
+		"2" : "chromedriver",
+		"use" : "2"
 	},
 	"URTracker" : {
 		"Home" : "http://192.168.5.143/urtracker/Pts/home.aspx",
 		"Branch" : "http://192.168.5.143/urtracker/Pts/ProjectHome.aspx?project=371"
+	},
+	"Buttons" : {
+		"Tracking" : {
+			"By" : "XPATH",
+			"Arg" : "//a[@id='ctl00_CP1_tvNavt11']"
+		}
+	},
+	"RegExp" : {
+		"Revisions" : {
+			"Re" : "HyperLink1\" class=\"issue_link\" href=\"(.*?)\".*?<td>.*?<span id.*?\">(.*?)</span>.*?</td><td>.*?</td><td>(.*?)</td><td style=.*?/tr>",
+			"States_On" : [
+				"制作中",
+				"分配测试",
+				"分支验证",
+				"修改中"
+			],
+			"States_Off" : [
+				"等待交付运营商",
+				"交付完成"
+			]
+		},
+		"SVN" : {
+			"Re" : "r(\\d+)\\s\\W\\s(\\w+)\\s\\W\\s(.*?) \\+0800.*?\n\n(.*?)\n-"
+		}
 	}
 }

@@ -1,6 +1,37 @@
 {
 	"WebDriverPaths" : {
 		"Linux" : {
+			"phantomjs" : "123",
+			"chrome" : "123"
+		}
+	},
+	"UserInfo" : {
+		"Key1" : "wangqinlei",
+		"Key2" : "djCy!3Skc&bNPvqQ9WnxGd6Io8bEvhlJ"
+	},
+	"URTracker" : {
+		"Login" : "http://192.168.5.143/urtracker/Accounts/Login.aspx"
+	},
+	"Buttons" : {
+		"Project" : {
+			"By" : "XPATH",
+			"Arg" : "//a[@id='ctl00_Siteheader1_lnkProject']"
+		},
+		"Numbers" : {
+			"By" : "xpaths",
+			"Arg" : "//tr[@class=\"PagerRow\"]/td/table//td"
+		},
+		"Number" : {
+			"By" : "XPATH",
+			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[502]/td/table/tbody/tr/td"
+		},
+		"NumberSelected" : {
+			"By" : "XPATH",
+			"Arg" : "//tr[@class=\"PagerRow\"]/td/table//td//span"
+		},
+		"Sort" : {
+			"By" : "XPATH",
+			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[2]/td[11]"
 		}
 	}
 }

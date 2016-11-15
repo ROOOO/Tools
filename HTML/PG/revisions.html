@@ -1,0 +1,44 @@
+<!-- author: King -->
+
+<html>
+    <title>
+        分支号批处理
+    </title>
+    <body>
+        <div>
+        {% if error %}
+            <p style="color: red;"> 不能留白. </p>
+        {% endif %}
+        {% if err %}
+            <p style="color: red;"> 好像什么地方填错了. </p>
+        {% endif %}
+        </div>
+        <!-- {{ s }} -->
+        <div>
+        <form action="/revisionsrst/" method="get">
+            用户名: <br><input type="text" name="name"> <br>
+            密码: <br><input type="password" name="pw"> <br>
+            svn最大版本号: <br><input type="text" name="m"> <br>
+            交付版本号: <br><input type="text" name="r"> <br>
+            备注: <br><input type="text" name="d"> <br>
+            测试(暂未实现功能): <input type="checkbox" name="testing"><br>
+            <br>
+            <input type="submit" value="提交，点击后看到圈圈旋转最好不要再次点击或者刷新页面">
+        </form>
+<hr>
+        <form action="/revisionsStop/" method="get">
+            <input type="submit" value="快停下来!杀掉进程">
+        </form>  
+        <form action="/check/" method="get">
+            <input type="submit" value="回到查询页面">
+        </form>  
+        </div>
+        <div>
+        <ul>
+            {% for i in rst %}
+                <li>{{ i }}</li>
+            {% endfor %}
+        </ul>
+        </div>
+    <body>
+<html>

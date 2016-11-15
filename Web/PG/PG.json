@@ -1,10 +1,4 @@
 {
-	"WebDriverPaths" : {
-		"Linux" : {
-			"phantomjs" : "123",
-			"chrome" : "123"
-		}
-	},
 	"UserInfo" : {
 		"Key1" : "wangqinlei",
 		"Key2" : "djCy!3Skc&bNPvqQ9WnxGd6Io8bEvhlJ"
@@ -27,11 +21,22 @@
 		},
 		"NumberSelected" : {
 			"By" : "XPATH",
-			"Arg" : "//tr[@class=\"PagerRow\"]/td/table//td//span"
+			"Arg" : [
+				"//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[502]/td/table/tbody/tr/td[",
+				"]/span"
+				]
 		},
 		"Sort" : {
 			"By" : "XPATH",
 			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[2]/td[11]"
+		},
+		"SortIcon" : {
+			"By" : "XPATH",
+			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[1]/th[11]/*[@src=\"../Images/sortdesc.gif\"]"
+		},
+		"WaitingPanel" : {
+			"By" : "XPATH",
+			"Arg" : "//*[@id=\"ctl00_Label1\"]"
 		}
 	}
 }

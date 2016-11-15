@@ -1,0 +1,60 @@
+<!-- author: King -->
+
+<html>
+    <title>
+    	小黑账查询
+    </title>
+    <body>
+        <div>
+            <ul>
+                <li>
+                    <a href="/md5">md5</a>
+                </li>
+                <li>
+                    <a href="/chinese">Chinese</a>
+                </li>
+                <li>
+                    <a href="/revisions">分支号批处理</a>
+                </li>
+                <li>
+                    <a href="http://192.168.6.55:23333/xxsy">寻仙手游</a>
+                </li>
+            </ul>
+        </div>
+
+        <HR>
+
+        <div>
+        <ul>
+            {% for i in svns %}
+                <li>{{ i }}</li>
+            {% endfor %}
+        </ul>
+        </div>
+
+        <div>
+        <p>“分支测试”中：</p>
+        <ul>
+            {% for i in testing %}
+                <li><a href="{{ i }}">{{ i }}</a></li>
+            {% endfor %}
+        </ul>
+        </div>
+
+        <div>
+        <p>“分支合并”中：</p>
+        <ul>
+            {% for i in merging %}
+                <li><a href="{{ i }}">{{ i }}</a></li>
+            {% endfor %}
+        </ul>
+        </div>
+
+        <div>
+        <p>嗯...... 暂停开发了，研究别的东西了......</p>
+        <p><a href="https://github.com/ROOOO/PGTools"><img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" height="88" width="88"></a></p>
+        <p>代码逻辑基本上写完了，还差测试修bug了，太伤脑筋......有空再弄......</p>
+        <p>v0.3.1   30/06/2016</p>
+        </div>
+    <body>
+<html>

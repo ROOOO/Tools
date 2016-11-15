@@ -1,0 +1,25 @@
+<!-- author: King -->
+
+<html>
+    <title>
+        test
+    </title>
+    <body>
+        <div>
+        {% if error %}
+            <p style="color: red;"> 不能留白. </p>
+        {% endif %}
+        </div>
+        <!-- {{ s }} -->
+        <div>
+        <form action="/testrst/" method="get">
+            用户名: <br><input type="text" name="name"> <br>
+            密码: <br><input type="text" name="pw"> <br>
+            svn最大版本号: <br><input type="text" name="m"> <br>
+            交付版本号: <br><input type="text" name="r"> <br>
+            备注: <br><input type="text" name="d"> <br>
+            <input type="submit" value="提交">
+        </form>
+        </div>
+    <body>
+<html>

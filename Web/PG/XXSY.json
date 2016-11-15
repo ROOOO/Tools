@@ -7,7 +7,7 @@
 	"Driver" : {
 		"1" : "PhantomJS",
 		"2" : "chromedriver",
-		"use" : "2"
+		"use" : "1"
 	},
 	"URTracker" : {
 		"Home" : "http://192.168.5.143/urtracker/Pts/home.aspx",

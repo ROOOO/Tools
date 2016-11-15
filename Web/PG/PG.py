@@ -38,7 +38,11 @@ class CPGTracker:
     self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text1')")
     self.__Web.WaitUntil('text_to_be_present_in_element', self.__selfSettings['Buttons']['Sort']['By'], self.__selfSettings['Buttons']['Sort']['Arg'], ' ')
     self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text1')")
-    self.__ss.Sleep(2)
+    if self.Settings['Driver']['use'] == 2:
+      self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['SortIcon']['By'], self.__selfSettings['Buttons']['SortIcon']['Arg'])
+    else:
+      self.__ss.Sleep(1)
+      self.__Web.WaitUntil('invisibility_of_element_located', self.__selfSettings['Buttons']['WaitingPanel']['By'], self.__selfSettings['Buttons']['WaitingPanel']['Arg'])
 
   def __RegRevisions(self, src, on, off):
     src = re.sub(re.compile(r'&nbsp;'), '', src)
@@ -73,7 +77,7 @@ class CPGTracker:
         numIdx = 8
       if not self.__RegRevisions(HTMLs[pageIdx - 2], on, off):
         break
-      self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['Number']['By'], self.__selfSettings['Buttons']['Number']['Arg'] + '[' + str(numIdx) + ']' + '/span')
+      self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['NumberSelected']['By'], self.__selfSettings['Buttons']['NumberSelected']['Arg'][0] + str(pageIdx) + self.__selfSettings['Buttons']['NumberSelected']['Arg'][1])
       HTMLs.append(self.__Web.GetPageSource())
       pageIdx += 1
       numIdx += 1

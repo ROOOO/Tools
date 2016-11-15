@@ -1,0 +1,663 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"render",
+				"render_to_response"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "util.py",
+			"settings":
+			{
+				"buffer_size": 5952,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test.py",
+			"settings":
+			{
+				"buffer_size": 542,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/king/git/PGTools/xmz.py",
+			"settings":
+			{
+				"buffer_size": 12045,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/king/git/PGTools/XTool.py",
+			"settings":
+			{
+				"buffer_size": 8178,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 1 file for \"login\"\n\n/Users/king/git/PGTools/.py:\n    ERROR: Unable to open file\n\n0 matches\n\nSearching 63 files for \"login\"\n\n/Users/king/git/PGTools/s.py:\n   18      \"\"\"docstring for s\"\"\"\n   19      def __init__(self):\n   20:         self.loginURL = 'http://192.168.5.143/urtracker/pts/ProjectHome.aspx?project=359'\n   21          sysstr = platform.system()\n   22          if sysstr == 'Linux':\n   ..\n   32          self.prt = PRT()\n   33  \n   34:     def login(self):\n   35          # self.userName = raw_input('username: ')\n   36          # self.password = getpass.getpass('password: ')\n   37          # self.userName = 'wangqinlei'\n   38          # self.password = ''\n   39:         self.driver.get(self.loginURL)\n   40          usernameElem = self.driver.find_element_by_name('txtEmail')\n   41          passwordElem = self.driver.find_element_by_name('txtPassword')\n   ..\n   87  \n   88  # test = s()\n   89: # test.login()\n   90  \n   91  # print u'获取所有Problems页面完毕，开始查找分支号'\n\n/Users/king/git/PGTools/xmz.py:\n   71  \n   72      def getProblemsHtmls(self):\n   73:         self.x.login()\n   74  \n   75          self.s.userName = self.x.userName\n   76          self.s.password = self.x.password\n   77:         self.s.login()\n   78  \n   79          self.prt.prt('获取所有Problems页面完毕，开始查找分支号')\n\n/Users/king/git/PGTools/XTool.py:\n   13      \"\"\"docstring for XTool\"\"\"\n   14      def __init__(self):\n   15:         # self.loginURL = 'http://192.168.8.1/tools/ctrl/login.php'\n   16          # self.postdata = urllib.urlencode({\n   17:         #     'atc': 'login',\n   18          #     'user': 'wangqinlei',\n   19          #     'passwd': '',\n   20          #     })\n   21:         self.loginURL = 'http://192.168.5.143/urtracker/Accounts/Login.aspx'\n   22          self.userName = ''\n   23          self.password = ''\n   24          self.postdata = urllib.urlencode({\n   25:             'ScriptManager1': 'UpdatePanel1|btnLogin',\n   26              '__EVENTTARGET': '',\n   27              '__EVENTARGUMENT': '',\n   ..\n   29              'txtEmail': self.userName,\n   30              'txtPassword': self.password,\n   31:             'chkAutoLogin': 'on',\n   32              '__ASYNCPOST': 'true',\n   33:             'btnLogin': '登  录',\n   34              })\n   35          self.cookies = cookielib.CookieJar()\n   ..\n   47          self.prt = PRT()\n   48  \n   49:     def login(self):\n   50          # self.userName = raw_input('username: ')\n   51          # self.password = getpass.getpass('password: ')\n   ..\n   54          self.prt.prt('稍候……')\n   55          self.postdata = urllib.urlencode({\n   56:             'ScriptManager1': 'UpdatePanel1|btnLogin',\n   57              '__EVENTTARGET': '',\n   58              '__EVENTARGUMENT': '',\n   ..\n   60              'txtEmail': self.userName,\n   61              'txtPassword': self.password,\n   62:             'chkAutoLogin': 'on',\n   63              '__ASYNCPOST': 'true',\n   64:             'btnLogin': '登  录',\n   65              })\n   66          request = urllib2.Request(\n   67:             url = self.loginURL,\n   68              data = self.postdata,\n   69              headers = self.headers)\n   70:         loginResult = self.opener.open(request)\n   71      def getPage(self, path):\n   72          # print path\n\n20 matches across 3 files\n\n\nSearching 64 files for \"xtool\"\n\n/Users/king/git/PGTools/s.py:\n   94  # # soups.makeSoup(test.htmls)\n   95  \n   96: # from XTool import XTool\n   97: # x = XTool()\n   98  # for html in test.htmls:\n   99  #     x.findAllRef(html)\n\n/Users/king/git/PGTools/xmz.py:\n    6  \n    7  import datetime\n    8: from XTool import XTool\n    9: from XTool import SVN\n   10  from s import s\n   11  import re\n   ..\n   19  class XMZ:\n   20      def __init__(self):\n   21:         self.x = XTool()\n   22          self.s = s()\n   23          self.startTime = datetime.datetime.now()\n\n/Users/king/git/PGTools/XTool.py:\n   10  import settings\n   11  \n   12: class XTool:\n   13:     \"\"\"docstring for XTool\"\"\"\n   14      def __init__(self):\n   15          # self.loginURL = 'http://192.168.8.1/tools/ctrl/login.php'\n\n9 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 4114,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "/Users/king/git/PGTools/s.py",
+			"settings":
+			{
+				"buffer_size": 4250,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 47.0,
+		"last_filter": "unitysh",
+		"selected_items":
+		[
+			[
+				"unitysh",
+				"Set Syntax: Unity Shader"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"sync",
+				"Sync Settings: Show Logs"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 485.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+	],
+	"file_history":
+	[
+		"/Users/king/UnityShader/main/Assets/Rock/Shaders/Diffuse Texture.shader",
+		"/Users/king/git/Tools/Taskkill.py",
+		"/Users/king/Documents/Example.shader",
+		"/Users/king/git/LearnOpenGL/resources/objects/nanosuit/nanosuit.mtl",
+		"/Users/king/git/LearnOpenGL/resources/objects/nanosuit/nanosuit.obj",
+		"/Users/king/git/LearningOpenGL/Files/Model Loading/Models/arbiter/a.obj",
+		"/Users/king/git/LearningOpenGL/Files/Model Loading/Models/a.obj",
+		"/Users/king/git/LearningOpenGL/Files/Model Loading/Models/a.mtl",
+		"/Users/king/git/LearningOpenGL/Files/Model Loading/Models/arbiter/arbiter.mtl",
+		"/Users/king/git/LearningOpenGL/Files/Model Loading/Models/arbiter/t_dante_weapons_demon_dm.tga",
+		"/Users/king/git/LearningOpenGL/Files/Model Loading/Models/Nanosuit2/nanosuit2.obj",
+		"/Users/king/git/LearningOpenGL/Files/Model Loading/Models/Nanosuit2/nanosuit2.3ds",
+		"/Users/king/git/LearningOpenGL/Files/Model Loading/Models/Nanosuit2/nanosuit2.c4d",
+		"/Users/king/git/YtbAudioDL/.gitignore",
+		"/Users/king/git/YtbAudioDL/ytbSimpleHTTP.sh",
+		"/Users/king/git/YtbAudioDL/ytbmp3Local.py",
+		"/Users/king/Documents/HTML/t.py",
+		"/Users/king/Documents/HTML/1-1.html",
+		"/Users/king/Spyder/s.py",
+		"/Users/king/Spyder/XTool.py",
+		"/Users/king/.sync-settings.log",
+		"/Users/king/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/king/Desktop/一周国标舞视频精选-5.5.txt",
+		"/Users/king/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Volumes/Untitled/Python/s.py",
+		"/Volumes/Untitled/Python/XTool.py",
+		"/Users/king/.ShadowsocksX/gfwlist.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"*.py",
+			".py"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"x.",
+			"script",
+			"x.",
+			"s.",
+			"s()",
+			"xtool",
+			"x.",
+			"By",
+			"__class__.CDriver",
+			"login",
+			"vn",
+			".tga",
+			"arbiter",
+			"_n.",
+			"_m.",
+			"_s.",
+			"_d.",
+			"png",
+			"dm.",
+			"arbiter_mi_dante_weapons_demon",
+			"vn",
+			"na",
+			"vn",
+			"youtube",
+			"form",
+			"bold",
+			">\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			".png"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "util.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5952,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1996,
+								1996
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 708.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "test.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 542,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "/Users/king/git/PGTools/xmz.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12045,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2744,
+								2746
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 833.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/king/git/PGTools/XTool.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8178,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2087,
+								2093
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1366.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4114,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										248,
+										253
+									],
+									[
+										465,
+										470
+									],
+									[
+										716,
+										721
+									],
+									[
+										927,
+										932
+									],
+									[
+										1088,
+										1093
+									],
+									[
+										1224,
+										1229
+									],
+									[
+										1421,
+										1426
+									],
+									[
+										1463,
+										1468
+									],
+									[
+										1555,
+										1560
+									],
+									[
+										1685,
+										1690
+									],
+									[
+										1737,
+										1742
+									],
+									[
+										1921,
+										1926
+									],
+									[
+										2139,
+										2144
+									],
+									[
+										2218,
+										2223
+									],
+									[
+										2369,
+										2374
+									],
+									[
+										2648,
+										2653
+									],
+									[
+										2866,
+										2871
+									],
+									[
+										2945,
+										2950
+									],
+									[
+										3055,
+										3060
+									],
+									[
+										3164,
+										3169
+									],
+									[
+										3419,
+										3424
+									],
+									[
+										3432,
+										3437
+									],
+									[
+										3451,
+										3456
+									],
+									[
+										3600,
+										3605
+									],
+									[
+										3613,
+										3618
+									],
+									[
+										3631,
+										3636
+									],
+									[
+										3767,
+										3772
+									],
+									[
+										3938,
+										3943
+									],
+									[
+										3973,
+										3978
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								3603,
+								3603
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 3,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ 	].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1485.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/king/git/PGTools/s.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4250,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3890,
+								3895
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Tools.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"x.",
+				"PGTools/XTool.py"
+			],
+			[
+				"xmz",
+				"PGTools/xmz.py"
+			],
+			[
+				"util",
+				"Tools/util.py"
+			],
+			[
+				"",
+				"YtbAudioDL/.gitignore"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

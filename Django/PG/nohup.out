@@ -1,0 +1,206 @@
+[15/Nov/2016 15:02:45] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:16] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:17] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:57] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:58] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:58] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:58] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:59] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:59] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:59] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:03:59] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:04:00] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:04:00] "GET /xxsy/ HTTP/1.1" 200 2066
+[15/Nov/2016 15:05:03] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:05:03] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:05:04] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:05:04] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:05:05] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:05:12] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:05:13] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:05:14] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:05:44] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:05:53] "GET /xxsy/ HTTP/1.1" 200 2056
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:01:49
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Unhandled exception in thread started by <function wrapper at 0x7fda2dd0a938>
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/utils/autoreload.py", line 234, in wrapper
+    filename = traceback.extract_tb(tb)[-1][0]
+  File "/usr/lib/python2.7/traceback.py", line 101, in extract_tb
+    line = linecache.getline(filename, lineno, f.f_globals)
+  File "/usr/lib/python2.7/linecache.py", line 14, in getline
+    lines = getlines(filename, module_globals)
+  File "/usr/lib/python2.7/linecache.py", line 40, in getlines
+    return updatecache(filename, module_globals)
+  File "/usr/lib/python2.7/linecache.py", line 139, in updatecache
+    cache[filename] = size, mtime, lines, fullname
+TypeError: 'NoneType' object does not support item assignment
+[15/Nov/2016 15:08:14] "GET /xxsy/ HTTP/1.1" 302 0
+[15/Nov/2016 15:08:22] "GET /xxsy/ HTTP/1.1" 302 0
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:08:14
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:08:31
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+[15/Nov/2016 15:08:37] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:08:44] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:51] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:51] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:52] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:52] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:53] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:54] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:54] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:54] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:54] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:55] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:09:56] "GET /xxsy/ HTTP/1.1" 200 2056
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:08:35
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+[15/Nov/2016 15:10:39] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:10:40] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:10:42] "GET /xxsy/ HTTP/1.1" 200 2056
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:10:39
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+[15/Nov/2016 15:13:30] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:13:32] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:13:33] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:13:34] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:14:29] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:19:02] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:19:03] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:20:00] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:21:23] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:21:23] "GET /xxsy/ HTTP/1.1" 200 2056
+[15/Nov/2016 15:21:38] "GET /xxsy/ HTTP/1.1" 200 2056
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:12:22
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+[15/Nov/2016 15:24:53] "GET /xxsy/ HTTP/1.1" 200 2079
+[15/Nov/2016 15:24:54] "GET /xxsy/ HTTP/1.1" 200 2079
+[15/Nov/2016 15:29:00] "GET /xxsy/ HTTP/1.1" 200 2046
+[15/Nov/2016 15:29:16] "GET /xxsy/ HTTP/1.1" 200 2046
+[15/Nov/2016 15:29:18] "GET /xxsy/ HTTP/1.1" 200 2046
+[15/Nov/2016 15:29:19] "GET /xxsy/ HTTP/1.1" 200 2046
+[15/Nov/2016 15:29:19] "GET /xxsy/ HTTP/1.1" 200 2046
+[15/Nov/2016 15:33:17] "GET /xxsy/ HTTP/1.1" 200 2046
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:24:52
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:39:21
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:41:08
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:41:14
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+[15/Nov/2016 15:42:39] "GET /xxsy/ HTTP/1.1" 200 2046
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:41:43
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:44:28
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+November 15, 2016 - 15:45:39
+Django version 1.9.5, using settings 'PGWeb.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Unhandled exception in thread started by <function wrapper at 0x7f2245b62938>
+Traceback (most recent call last):

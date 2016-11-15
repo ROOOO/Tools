@@ -1,8 +1,9 @@
 #coding: utf-8
 
 import re
+import os
 import sys
-sys.path.append('../..')
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from util.util import *
 sys.path.pop(len(sys.path) - 1)
 
@@ -11,7 +12,7 @@ class CPGTracker:
     self.Settings = CSettings(CfgFilePath).Json()
     self.__ss = CSystem()
     self.__selfSettings = CSettings('PG.json').Json()
-    self.__Web = CWeb(self.Settings)
+    self.__Web = CWeb(self.Settings, '', self.Settings['Cookie'])
     self.__Element = CWebElement(self.__Web.GetDriver())
     self.__PageNum = 0
 
@@ -36,15 +37,16 @@ class CPGTracker:
 
   def __SortPage(self):
     self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text1')")
-    self.__Web.WaitUntil('text_to_be_present_in_element', self.__selfSettings['Buttons']['Sort']['By'], self.__selfSettings['Buttons']['Sort']['Arg'], ' ')
+    self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['SortIconAsc']['By'], self.__selfSettings['Buttons']['SortIconAsc']['Arg'])
+    # self.__Web.WaitUntil('text_to_be_present_in_element', self.__selfSettings['Buttons']['Sort']['By'], self.__selfSettings['Buttons']['Sort']['Arg'], ' ')
     self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text1')")
-    if self.Settings['Driver']['use'] == 2:
-      self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['SortIcon']['By'], self.__selfSettings['Buttons']['SortIcon']['Arg'])
-    else:
-      self.__ss.Sleep(1)
-      self.__Web.WaitUntil('invisibility_of_element_located', self.__selfSettings['Buttons']['WaitingPanel']['By'], self.__selfSettings['Buttons']['WaitingPanel']['Arg'])
+    # if self.Settings['Driver']['use'] == 2:
+    self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['SortIconDesc']['By'], self.__selfSettings['Buttons']['SortIconDesc']['Arg'])
+    # else:
+    #   self.__ss.Sleep(1)
+    #   self.__Web.WaitUntil('invisibility_of_element_located', self.__selfSettings['Buttons']['WaitingPanel']['By'], self.__selfSettings['Buttons']['WaitingPanel']['Arg'])
 
-  def __RegRevisions(self, src, on, off):
+  def __RegRevisions(self, src, on, off, todo):
     src = re.sub(re.compile(r'&nbsp;'), '', src)
     pattern1 = re.compile(self.Settings['RegExp']['Revisions']['Re'], re.S)
     items = re.findall(pattern1, src)
@@ -57,11 +59,15 @@ class CPGTracker:
         for x in re.split(pattern2, item[2]):
           if x not in on:
             on.append(x)
-            b = True
       elif item[1] in self.Settings['RegExp']['Revisions']['States_Off']:
         for x in re.split(pattern2, item[2]):
           if x not in off and x >= self.Settings['Min']:
             off.append(x)
+      if item[1] in self.Settings['RegExp']['Revisions']['States_Todo']:
+        for x in re.split(pattern2, item[2]):
+          if x not in todo and x >= self.Settings['Min']:
+            todo.append(x)
+            b = True
     return b
 
   def GetRevisions(self):
@@ -71,29 +77,30 @@ class CPGTracker:
     numIdx = 2
     on = []
     off = []
+    todo = []
     while pageIdx <= self.__PageNum:
       self.__Web.ExecScript('javascript:__doPostBack(\'ctl00$CP1$gvProblems\',\'Page$' + str(pageIdx) + '\')')
       if numIdx > 10:
         numIdx = 8
-      if not self.__RegRevisions(HTMLs[pageIdx - 2], on, off):
+      if not self.__RegRevisions(HTMLs[pageIdx - 2], on, off, todo):
         break
       self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['NumberSelected']['By'], self.__selfSettings['Buttons']['NumberSelected']['Arg'][0] + str(pageIdx) + self.__selfSettings['Buttons']['NumberSelected']['Arg'][1])
       HTMLs.append(self.__Web.GetPageSource())
       pageIdx += 1
       numIdx += 1
-    self.__RegRevisions(HTMLs[pageIdx - 2], on, off)
-    return [on, off]
+    self.__RegRevisions(HTMLs[pageIdx - 2], on, off, todo)
+    return [on, off, todo]
 
   def URTrackerCheck(self, args):
-    # try:
-    self.__Login()
-    self.__GoToBranchPage(args['URTracker_Branch'])
-    self.__PageNum = self.__GetBranchPageNum()
-    self.__SortPage()
-    return self.GetRevisions()
-    # except:
-    #   self.__Web.Quit()
-    #   print 'err'
+    try:
+      self.__Login()
+      self.__GoToBranchPage(args['URTracker_Branch'])
+      self.__PageNum = self.__GetBranchPageNum()
+      self.__SortPage()
+      return self.GetRevisions()
+    except Exception, e:
+      self.__Web.Quit()
+      self.__ss.Traceback(Exception, e)      
 
 class SVNItem:
   def __init__(self, revision, author, time, log):
@@ -121,9 +128,13 @@ class CPGSVN:
     for item in items:
       self.__logItems[item[0]] = SVNItem(item[0], item[1], item[2], item[3])
 
-  def CheckLogs(self, revisions):
+  def CheckLogs(self, revisions, todoRevisions):
     blackList = []
+    wrongList = []
     for logId in self.__logItems:
       if logId not in revisions:
         blackList.append(self.__logItems[logId])
-    return blackList
+    for revision in todoRevisions:
+      if not self.__logItems.has_key(revision):
+        wrongList.append(revision)
+    return [blackList, wrongList]

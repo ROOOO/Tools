@@ -5,6 +5,7 @@
     	寻仙手游小黑账查询
     </title>
 <head>
+    <meta charset="utf" />
 <!-- <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script> 
 <script>
 $(document).ready(function(){
@@ -42,14 +43,26 @@ $(document).ready(function(){
         <HR>
 
         <div>
+        <p><b>未提交分支申请：</b></p>
         <ul>
-            {% for i in svns %}
+            {% for i in blackList %}
+                {% if "," in i %}
+                {% else %}
+                    <li>{{ i }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <p><b>写错 Branch Revision：</b></p>
+        <ul>
+            {% for i in wrongList %}
                 <li>{{ i }}</li>
             {% endfor %}
         </ul>
+        <HR>
+        <p><b>待制作版本({{ count }})：</b><p> {{ todo | wordwrap:5 }} </p>
 
         <HR>
-        更新时间：{{ modTime }}
+        <p><b>更新时间：{{ modTime }}</b></p>
         </div>
 
 <!-- <div id="flip">Click to slide the panel down or up</div>

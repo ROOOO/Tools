@@ -26,11 +26,11 @@
 				"]/span"
 				]
 		},
-		"Sort" : {
+		"SortIconAsc" : {
 			"By" : "XPATH",
-			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[2]/td[11]"
+			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[1]/th[11]/*[@src=\"../Images/sortAsc.gif\"]"
 		},
-		"SortIcon" : {
+		"SortIconDesc" : {
 			"By" : "XPATH",
 			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[1]/th[11]/*[@src=\"../Images/sortdesc.gif\"]"
 		},

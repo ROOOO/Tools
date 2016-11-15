@@ -1,4 +1,5 @@
 {
+	"Cookie" : "/tmp/xxsy",
 	"Min" : 41234,
 	"SVNPath" : {
 		"Trunk"		: "svn://bigsvr/xx/trunk",
@@ -7,7 +8,7 @@
 	"Driver" : {
 		"1" : "PhantomJS",
 		"2" : "chromedriver",
-		"use" : "1"
+		"use" : "2"
 	},
 	"URTracker" : {
 		"Home" : "http://192.168.5.143/urtracker/Pts/home.aspx",
@@ -31,6 +32,13 @@
 			"States_Off" : [
 				"等待交付运营商",
 				"交付完成"
+			],
+			"States_Todo" : [
+				"制作中",
+				"分配测试",
+				"分支验证",
+				"修改中",
+				"等待交付运营商"
 			]
 		},
 		"SVN" : {

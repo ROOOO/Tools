@@ -35,7 +35,7 @@ def URTracker_SVN_XXSY(request):
     rsp = {}
     rsp['blackList'] = blackList
     rsp['wrongList'] = wrongList
-    rsp['modTime'] = xxsy_ss.StrfTime(xxsy_ss.GetFileTime('m', FILE))
+    rsp['modTime'] = xxsy_ss.StrfTime(xxsy_ss.GetFileTime('m', FILE) + 8 * 60 * 60)
     rsp['todo'] = ', '.join(todoList)
     rsp['count'] = len(todoList)
 

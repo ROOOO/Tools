@@ -55,7 +55,7 @@ $(document).ready(function(){
         <p><b>写错 Branch Revision：</b></p>
         <ul>
             {% for i in wrongList %}
-                <li>{{ i }}</li>
+                <li>{{ i.revision }}&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://192.168.5.143/urtracker/Pts/{{ i.url }}">{{ i.url }}</a></li>
             {% endfor %}
         </ul>
         <HR>

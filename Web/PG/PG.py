@@ -7,6 +7,12 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from util.util import *
 sys.path.pop(len(sys.path) - 1)
 
+class STrackerItem:
+  def __init__(self, args):
+    self.url = args['url'] if args['url'] else ''
+    self.state = args['state'] if args['state'] else ''
+    self.revisions = args['revisions'] if args['revisions'] else []
+
 class CPGTracker:
   def __init__(self, CfgFilePath):
     self.Settings = CSettings(CfgFilePath).Json()
@@ -46,7 +52,7 @@ class CPGTracker:
     #   self.__ss.Sleep(1)
     #   self.__Web.WaitUntil('invisibility_of_element_located', self.__selfSettings['Buttons']['WaitingPanel']['By'], self.__selfSettings['Buttons']['WaitingPanel']['Arg'])
 
-  def __RegRevisions(self, src, on, off, todo):
+  def __RegRevisions(self, src, on, off, todo, _min, _max):
     src = re.sub(re.compile(r'&nbsp;'), '', src)
     pattern1 = re.compile(self.Settings['RegExp']['Revisions']['Re'], re.S)
     items = re.findall(pattern1, src)
@@ -55,19 +61,31 @@ class CPGTracker:
     for item in items:
       if item[2] == '' or item[2] == ' ' or item[2] == u'\xa0':
         continue
+      revisions_s = re.split(pattern2, item[2])
       if item[1] in self.Settings['RegExp']['Revisions']['States_On']:
-        for x in re.split(pattern2, item[2]):
-          if x not in on:
-            on.append(x)
+        for r in revisions_s:
+          if not on.has_key(r):
+            on[r] = STrackerItem({
+              'url' : item[0],
+              'state' : item[1],
+              'revisions' : item[2],
+              }) 
       elif item[1] in self.Settings['RegExp']['Revisions']['States_Off']:
-        for x in re.split(pattern2, item[2]):
-          if x not in off and x >= self.Settings['Min']:
-            off.append(x)
+        for r in revisions_s:
+          if not off.has_key(r):
+            off[r] = STrackerItem({
+              'url' : item[0],
+              'state' : item[1],
+              'revisions' : item[2],
+              }) 
       if item[1] in self.Settings['RegExp']['Revisions']['States_Todo']:
-        for x in re.split(pattern2, item[2]):
-          if x not in todo and x >= self.Settings['Min']:
-            todo.append(x)
-            b = True
+        for r in revisions_s:
+          if r not in todo:
+            todo.append(r)
+
+        _min[0] = min(revisions_s) if min(revisions_s) < _min[0] or _min[0] == 0 else _min[0]
+        _max[0] = max(revisions_s) if max(revisions_s) > _max[0] or _max[0] == 0 else _max[0]
+        b = True
     return b
 
   def GetRevisions(self):
@@ -75,21 +93,24 @@ class CPGTracker:
     HTMLs.append(self.__Web.GetPageSource())
     pageIdx = 2
     numIdx = 2
-    on = []
-    off = []
+    on = {}
+    off = {}
     todo = []
+    _min = [0]
+    _max = [0]
     while pageIdx <= self.__PageNum:
       self.__Web.ExecScript('javascript:__doPostBack(\'ctl00$CP1$gvProblems\',\'Page$' + str(pageIdx) + '\')')
       if numIdx > 10:
         numIdx = 8
-      if not self.__RegRevisions(HTMLs[pageIdx - 2], on, off, todo):
+      if not self.__RegRevisions(HTMLs[pageIdx - 2], on, off, todo, _min, _max):
         break
       self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['NumberSelected']['By'], self.__selfSettings['Buttons']['NumberSelected']['Arg'][0] + str(pageIdx) + self.__selfSettings['Buttons']['NumberSelected']['Arg'][1])
       HTMLs.append(self.__Web.GetPageSource())
       pageIdx += 1
       numIdx += 1
-    self.__RegRevisions(HTMLs[pageIdx - 2], on, off, todo)
-    return [on, off, todo]
+    self.__RegRevisions(HTMLs[pageIdx - 2], on, off, todo, _min, _max)
+    self.__Web.Quit()
+    return on, off, todo, _min[0], _max[0]
 
   def URTrackerCheck(self, args):
     try:
@@ -101,6 +122,7 @@ class CPGTracker:
     except Exception, e:
       self.__Web.Quit()
       self.__ss.Traceback(Exception, e)      
+      return {}, {}, {}, 0, 0
 
 class SVNItem:
   def __init__(self, revision, author, time, log):
@@ -123,10 +145,13 @@ class CPGSVN:
 
   def __GetLogs(self):
     self.__logs = self.__ss.RunProcess(u'svn log -r ' + str(self.__rMin) + ':' + str(self.__rMax) + ' ' + self.__svnPath, True)
+    if self.__logs == '':
+      self.__logs = self.__ss.RunProcess(u'svn log -r ' + str(self.__rMin) + ':' + 'HEAD' + ' ' + self.__svnPath, True)
     pattern = re.compile(self.Settings['RegExp']['SVN']['Re'], re.S)
     items = re.findall(pattern, self.__logs)
+    print self.__rMax, self.__rMin
     for item in items:
-      self.__logItems[item[0]] = SVNItem(item[0], item[1], item[2], item[3])
+      self.__logItems[item[0]] = SVNItem(item[0], item[1], item[2], item[3] if item[3] else '')
 
   def CheckLogs(self, revisions, todoRevisions):
     blackList = []

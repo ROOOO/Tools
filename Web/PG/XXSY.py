@@ -20,13 +20,15 @@ if __name__ == '__main__':
   		'URTracker_Branch' : xxsy_cfg['URTracker']['Branch'],
   		})
 
-	_min = min(revisions[0]) if min(revisions[0]) < min(revisions[1]) else min(revisions[1])
-	_max = max(revisions[0]) if max(revisions[0]) < max(revisions[1]) else max(revisions[1])
-	xxsy_svn = CXXSY_SVN('XXSY.json', _min if _min < xxsy_cfg['Min'] else xxsy_cfg['Min'], _max)
-	lists = xxsy_svn.CheckLogs(revisions[0] + revisions[1], revisions[2])
+	_min = revisions[3]
+	_max = revisions[4]
+	xxsy_svn = CXXSY_SVN('XXSY.json', _min if _min < xxsy_cfg['Min'] and _min != 0 else xxsy_cfg['Min'], _max)
+	lists = xxsy_svn.CheckLogs(list(revisions[0]) + list(revisions[1]), revisions[2])
 	blackList = lists[0]
 	blackList.sort()
 	wrongList = lists[1]
+	wrongList.sort()
+
 	revisions[2].sort()
 
 	block = ''
@@ -34,18 +36,20 @@ if __name__ == '__main__':
 		print b.revision, b.author, b.time, b.log
 		# block += b.revision + '\t' + b.author + '\t' + b.time + '\t"' + b.log + '"\t' + 'eol\n'
 		block += b.revision + '\t' + b.author + '\t' + b.time + '\t' + 'black\n'
-	print 'WRONG LIST:\n'
+
+	on_and_off_d = revisions[0].copy()
+	on_and_off_d.update(revisions[1])
+
+	print '\nWRONG LIST:'
 	for w in wrongList:
 		print w
-		block += str(w) + 'wrong\n'
+		block += str(w) + '\t' + on_and_off_d[str(w)].url + '\t' + 'wrong\n'
 
 	TMP_FILE = os.path.join(xxsy_ss.GetDirName(xxsy_ss.GetDirName(xxsy_ss.GetRealPath(__file__))), 'PG_OUTPUTS', '_xxsy_tracker_svn.txt')
 	FILE = os.path.join(xxsy_ss.GetDirName(xxsy_ss.GetDirName(xxsy_ss.GetRealPath(__file__))), 'PG_OUTPUTS', 'xxsy_tracker_svn.txt')
 
-	# todo
 	block += ','.join(revisions[2])
 	block += ',\n'
-	block += xxsy_ss.StrfTime(xxsy_ss.GetFileTime('m', TMP_FILE)) + '\n'
 
 	xxsy_ss.WriteFile(TMP_FILE, block)
 	xxsy_ss.CopyFile(TMP_FILE, FILE)

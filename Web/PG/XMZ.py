@@ -42,8 +42,9 @@ if __name__ == '__main__':
 
 	print '\nWRONG LIST:'
 	for w in wrongList:
-		print w
-		block += str(w) + '\t' + on_and_off_d[str(w)].url + '\t' + 'wrong\n'
+		if int(w) >= int(xmz_cfg['Min']):
+			print w
+			block += str(w) + '\t' + on_and_off_d[str(w)].url + '\t' + 'wrong\n'
 
 	TMP_FILE = os.path.join(xmz_ss.GetDirName(xmz_ss.GetDirName(xmz_ss.GetRealPath(__file__))), 'PG_OUTPUTS', '_xmz_tracker_svn.txt')
 	FILE = os.path.join(xmz_ss.GetDirName(xmz_ss.GetDirName(xmz_ss.GetRealPath(__file__))), 'PG_OUTPUTS', 'xmz_tracker_svn.txt')

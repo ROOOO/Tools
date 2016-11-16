@@ -42,8 +42,9 @@ if __name__ == '__main__':
 
 	print '\nWRONG LIST:'
 	for w in wrongList:
-		print w
-		block += str(w) + '\t' + on_and_off_d[str(w)].url + '\t' + 'wrong\n'
+		if w >= int(xxsy_cfg['Min']):
+			print w
+			block += str(w) + '\t' + on_and_off_d[str(w)].url + '\t' + 'wrong\n'
 
 	TMP_FILE = os.path.join(xxsy_ss.GetDirName(xxsy_ss.GetDirName(xxsy_ss.GetRealPath(__file__))), 'PG_OUTPUTS', '_xxsy_tracker_svn.txt')
 	FILE = os.path.join(xxsy_ss.GetDirName(xxsy_ss.GetDirName(xxsy_ss.GetRealPath(__file__))), 'PG_OUTPUTS', 'xxsy_tracker_svn.txt')

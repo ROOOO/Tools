@@ -54,7 +54,7 @@ if __name__ == '__main__':
 	xxsy_ss.WriteFile(TMP_FILE, block)
 	xxsy_ss.CopyFile(TMP_FILE, FILE)
 
-	xxsy_ss.RunProcess('scp "' + FILE + '" wangqinlei@192.168.6.55:/home/wangqinlei/PGTools/checkResult_xxsy.txt', True)
+	# xxsy_ss.RunProcess('scp "' + FILE + '" wangqinlei@192.168.6.55:/home/wangqinlei/PGTools/checkResult_xxsy.txt', True)
 
 	if xxsy_ss.GetSystemFlag() == 'Linux':
 		xxsy_ss.KillProcess([xxsy_cfg['Cookie']], [xxsy_cfg['Cookie']])

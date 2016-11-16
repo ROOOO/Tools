@@ -1,0 +1,51 @@
+{
+	"Cookie" : "/tmp/xmz",
+	"Min" : 41770,
+	"SVNPath" : {
+		"Branch"	: "svn://bigsvr/bo2actapp/branch/blackbox_1601"
+	},
+	"Driver" : {
+		"1" : "PhantomJS",
+		"2" : "chromedriver",
+		"use" : "2"
+	},
+	"URTracker" : {
+		"Home" : "http://192.168.5.143/urtracker/Pts/home.aspx",
+		"Branch" : "http://192.168.5.143/urtracker/Pts/ProjectHome.aspx?project=359"
+	},
+	"Buttons" : {
+		"Tracking" : {
+			"By" : "XPATH",
+			"Arg" : "//a[@id='ctl00_CP1_tvNavt14']"
+		},
+		"SortIconAsc" : {
+			"By" : "XPATH",
+			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[1]/th[14]/*[@src=\"../Images/sortAsc.gif\"]"
+		},
+		"SortIconDesc" : {
+			"By" : "XPATH",
+			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[1]/th[14]/*[@src=\"../Images/sortdesc.gif\"]"
+		}
+	},
+	"RegExp" : {
+		"Revisions" : {
+			"Re" : "HyperLink1\" class=\"issue_link\" href=\"(.*?)\".*?<td>.*?<span id.*?\">(.*?)</span>.*?<td style=.*?\"><span.*?</td><td>.*?<td>.*?<td>(.*?)</td><td>.*?</td><td>.*?</td><td>.*?</td.*?/tr>",
+			"States_On" : [
+				"分支合并",
+				"分支测试",
+				"测试通过"
+			],
+			"States_Off" : [
+				"发布完成"
+			],
+			"States_Todo" : [
+				"分支合并",
+				"分支测试",
+				"测试通过"
+			]
+		},
+		"SVN" : {
+			"Re" : "r(\\d+)\\s\\W\\s(\\w+)\\s\\W\\s(.*?) \\+0800.*?\n\n(.*?)\n-"
+		}
+	}
+}

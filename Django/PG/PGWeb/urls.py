@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from XXSY.views import URTracker_SVN_XXSY
+from XMZ.views import URTracker_SVN_XMZ
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^xxsy/', URTracker_SVN_XXSY),
+    url(r'^xmz/', URTracker_SVN_XMZ),
 ]

@@ -43,11 +43,11 @@ class CPGTracker:
 
   def __SortPage(self):
     self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text1')")
-    self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['SortIconAsc']['By'], self.__selfSettings['Buttons']['SortIconAsc']['Arg'])
+    self.__Web.WaitUntil('visibility_of_element_located', self.Settings['Buttons']['SortIconAsc']['By'], self.Settings['Buttons']['SortIconAsc']['Arg'])
     # self.__Web.WaitUntil('text_to_be_present_in_element', self.__selfSettings['Buttons']['Sort']['By'], self.__selfSettings['Buttons']['Sort']['Arg'], ' ')
     self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text1')")
     # if self.Settings['Driver']['use'] == 2:
-    self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['SortIconDesc']['By'], self.__selfSettings['Buttons']['SortIconDesc']['Arg'])
+    self.__Web.WaitUntil('visibility_of_element_located', self.Settings['Buttons']['SortIconDesc']['By'], self.Settings['Buttons']['SortIconDesc']['Arg'])
     # else:
     #   self.__ss.Sleep(1)
     #   self.__Web.WaitUntil('invisibility_of_element_located', self.__selfSettings['Buttons']['WaitingPanel']['By'], self.__selfSettings['Buttons']['WaitingPanel']['Arg'])

@@ -18,6 +18,14 @@
 		"Tracking" : {
 			"By" : "XPATH",
 			"Arg" : "//a[@id='ctl00_CP1_tvNavt11']"
+		},
+		"SortIconAsc" : {
+			"By" : "XPATH",
+			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[1]/th[11]/*[@src=\"../Images/sortAsc.gif\"]"
+		},
+		"SortIconDesc" : {
+			"By" : "XPATH",
+			"Arg" : "//*[@id=\"ctl00_CP1_gvProblems\"]/tbody/tr[1]/th[11]/*[@src=\"../Images/sortdesc.gif\"]"
 		}
 	},
 	"RegExp" : {

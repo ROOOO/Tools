@@ -1,0 +1,75 @@
+<!-- author: King -->
+
+<html>
+    <title>
+    	寻仙手游小黑账查询
+    </title>
+<head>
+    <meta charset="utf-8" />
+<!-- <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script> 
+<script>
+$(document).ready(function(){
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+});
+</script>
+
+<style>
+#panel, #flip {
+    padding: 5px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+
+#panel {
+    padding: 50px;
+    display: none;
+}
+</style> -->
+</head>
+
+
+    <body>
+<!--         <div>
+            <ul>
+                <li>
+                    <a href="http://192.168.6.55:23333/check/">侠魔志</a>
+                </li>
+            </ul>
+        </div> -->
+
+        <HR>
+
+        <div>
+        <p><b>未提交分支申请：</b></p>
+        <ul>
+            {% for i in blackList %}
+                {% if "," in i %}
+                {% else %}
+                    <li>{{ i }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <p><b>写错 Branch Revision：</b></p>
+        <ul>
+            {% for i in wrongList %}
+                <li>{{ i.revision }}&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://192.168.5.143/urtracker/Pts/{{ i.url }}">点击查看</a></li>
+            {% endfor %}
+        </ul>
+        <HR>
+        <p><b>待制作版本({{ count }})：</b><p> {{ todo | wordwrap:5 }} </p>
+
+        <HR>
+        <p><b>更新时间：{{ modTime }}</b></p>
+        </div>
+
+<!-- <div id="flip">Click to slide the panel down or up</div>
+<div id="panel">Hello world!</div>
+ -->
+        <div>
+<!--         <p><a href="https://github.com/ROOOO/PGTools"><img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" height="88" width="88"></a></p> -->
+        </div>
+    <body>
+<html>

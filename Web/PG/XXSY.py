@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
 	print '\nWRONG LIST:'
 	for w in wrongList:
-		if w >= int(xxsy_cfg['Min']):
+		if int(w) >= int(xxsy_cfg['Min']):
 			print w
 			block += str(w) + '\t' + on_and_off_d[str(w)].url + '\t' + 'wrong\n'
 

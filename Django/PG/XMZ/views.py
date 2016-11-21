@@ -19,6 +19,12 @@ def URTracker_SVN_XMZ(request):
     with open(FILE, 'r+') as file:
         svns = file.read()
 
+    testingList = []
+    for svn in re.findall(re.compile(r'(.*?)\t(.*?)\ttesting\n'), svns):
+        testingList.append({
+            'url' : svn[0],
+            'title' : svn[1],
+            })
     blackList = []
     for svn in re.findall(re.compile(r'(.*?)black\n', re.S), svns):
         blackList.append(svn)
@@ -33,6 +39,7 @@ def URTracker_SVN_XMZ(request):
         todoList.append(svn)
 
     rsp = {}
+    rsp['testingList'] = testingList
     rsp['blackList'] = blackList
     rsp['wrongList'] = wrongList
     rsp['modTime'] = xmz_ss.StrfTime(xmz_ss.GetFileTime('m', FILE) + 8 * 60 * 60)

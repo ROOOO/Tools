@@ -32,6 +32,10 @@ if __name__ == '__main__':
 	revisions[2].sort()
 
 	block = ''
+	for t in revisions[3]:
+		# print t, revisions[3][t]
+		block += t + '\t' + revisions[3][t] + '\t' + 'testing\n'
+
 	for b in blackList:
 		print b.revision, b.author, b.time, b.log
 		# block += b.revision + '\t' + b.author + '\t' + b.time + '\t"' + b.log + '"\t' + 'eol\n'

@@ -30,7 +30,7 @@
 	},
 	"RegExp" : {
 		"Revisions" : {
-			"Re" : "HyperLink1\" class=\"issue_link\" href=\"(.*?)\".*?<td>.*?<span id.*?\">(.*?)</span>.*?</td><td>.*?</td><td>(.*?)</td><td style=.*?/tr>",
+			"Re" : "HyperLink1\" class=\"issue_link\" href=\"(.*?)\">(.*?)</a>.*?<td>.*?<span id.*?\">(.*?)</span>.*?</td><td>.*?</td><td>(.*?)</td><td style=.*?/tr>",
 			"States_On" : [
 				"制作中",
 				"分配测试",
@@ -43,6 +43,18 @@
 			],
 			"States_Todo" : [
 				"等待交付运营商"
+			],
+			"States_NotEnd" : [
+				"制作中",
+				"分配测试",
+				"分支验证",
+				"修改中",
+				"等待交付运营商"
+			],
+			"States_Testing" : [
+				"分配测试",
+				"分支验证",
+				"修改中"
 			]
 		},
 		"SVN" : {

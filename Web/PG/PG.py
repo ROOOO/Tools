@@ -52,40 +52,53 @@ class CPGTracker:
     #   self.__ss.Sleep(1)
     #   self.__Web.WaitUntil('invisibility_of_element_located', self.__selfSettings['Buttons']['WaitingPanel']['By'], self.__selfSettings['Buttons']['WaitingPanel']['Arg'])
 
-  def __RegRevisions(self, src, on, off, todo, _min, _max):
+  def __RegRevisions(self, src, lists):
+    on = lists[0]
+    off = lists[1]
+    todo = lists[2]
+    testing = lists[3]
+    _min = lists[4]
+    _max = lists[5]
     src = re.sub(re.compile(r'&nbsp;'), '', src)
     pattern1 = re.compile(self.Settings['RegExp']['Revisions']['Re'], re.S)
     items = re.findall(pattern1, src)
     pattern2 = re.compile(r',|，')
     b = False
     for item in items:
-      if item[2] == '' or item[2] == ' ' or item[2] == u'\xa0':
+      if item[3] == '' or item[3] == ' ' or item[3] == u'\xa0':
         continue
-      revisions_s = re.split(pattern2, item[2])
-      if item[1] in self.Settings['RegExp']['Revisions']['States_On']:
+      revisions_s = re.split(pattern2, item[3])
+      if item[2] in self.Settings['RegExp']['Revisions']['States_On']:
         for r in revisions_s:
           if not on.has_key(r):
             on[r] = STrackerItem({
               'url' : item[0],
-              'state' : item[1],
-              'revisions' : item[2],
+              'state' : item[2],
+              'revisions' : item[3],
               }) 
-      elif item[1] in self.Settings['RegExp']['Revisions']['States_Off']:
+      elif item[2] in self.Settings['RegExp']['Revisions']['States_Off']:
         for r in revisions_s:
           if not off.has_key(r):
             off[r] = STrackerItem({
               'url' : item[0],
-              'state' : item[1],
-              'revisions' : item[2],
-              }) 
-      if item[1] in self.Settings['RegExp']['Revisions']['States_Todo']:
+              'state' : item[2],
+              'revisions' : item[3],
+              })
+
+      if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
+        _min[0] = min(revisions_s) if min(revisions_s) < _min[0] or _min[0] == 0 else _min[0]
+        _max[0] = max(revisions_s) if max(revisions_s) > _max[0] or _max[0] == 0 else _max[0]
+        b = True
+
+      if item[2] in self.Settings['RegExp']['Revisions']['States_Todo']:
         for r in revisions_s:
           if r not in todo:
             todo.append(r)
 
-        _min[0] = min(revisions_s) if min(revisions_s) < _min[0] or _min[0] == 0 else _min[0]
-        _max[0] = max(revisions_s) if max(revisions_s) > _max[0] or _max[0] == 0 else _max[0]
-        b = True
+      if item[2] in self.Settings['RegExp']['Revisions']['States_Testing']:
+        if not testing.has_key(item[0]):
+          testing[item[0]] = item[1]
+
     return b
 
   def GetRevisions(self):
@@ -93,24 +106,33 @@ class CPGTracker:
     HTMLs.append(self.__Web.GetPageSource())
     pageIdx = 2
     numIdx = 2
-    on = {}
-    off = {}
-    todo = []
-    _min = [0]
-    _max = [0]
+    lists = [
+      # 'on' = {},
+      # 'off' = {},
+      # 'todo' = [],
+      # 'testing' = [],
+      # '_min' = [0],
+      # '_max' = [0],
+      {},
+      {},
+      [],
+      {},
+      [0],
+      [0],
+    ]
     while pageIdx <= self.__PageNum:
       self.__Web.ExecScript('javascript:__doPostBack(\'ctl00$CP1$gvProblems\',\'Page$' + str(pageIdx) + '\')')
       if numIdx > 10:
         numIdx = 8
-      if not self.__RegRevisions(HTMLs[pageIdx - 2], on, off, todo, _min, _max):
+      if not self.__RegRevisions(HTMLs[pageIdx - 2], lists):
         break
       self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['NumberSelected']['By'], self.__selfSettings['Buttons']['NumberSelected']['Arg'][0] + str(pageIdx) + self.__selfSettings['Buttons']['NumberSelected']['Arg'][1])
       HTMLs.append(self.__Web.GetPageSource())
       pageIdx += 1
       numIdx += 1
-    self.__RegRevisions(HTMLs[pageIdx - 2], on, off, todo, _min, _max)
+    self.__RegRevisions(HTMLs[pageIdx - 2], lists)
     self.__Web.Quit()
-    return on, off, todo, _min[0], _max[0]
+    return lists
 
   def URTrackerCheck(self, args):
     try:

@@ -19,8 +19,14 @@ def URTracker_SVN_XXSY(request):
     with open(FILE, 'r+') as file:
         svns = file.read()
 
+    testingList = []
+    for svn in re.findall(re.compile(r'(.*?)\t(.*?)\ttesting\n'), svns):
+        testingList.append({
+            'url' : svn[0],
+            'title' : svn[1],
+            })
     blackList = []
-    for svn in re.findall(re.compile(r'(.*?)black\n', re.S), svns):
+    for svn in re.findall(re.compile(r'(.*?)black\n'), svns):
         blackList.append(svn)
     wrongList = []
     for svn in re.findall(re.compile(r'(.*?)\t(.*?)\twrong\n'), svns):
@@ -33,6 +39,7 @@ def URTracker_SVN_XXSY(request):
         todoList.append(svn)
 
     rsp = {}
+    rsp['testingList'] = testingList
     rsp['blackList'] = blackList
     rsp['wrongList'] = wrongList
     rsp['modTime'] = xxsy_ss.StrfTime(xxsy_ss.GetFileTime('m', FILE) + 8 * 60 * 60)

@@ -58,6 +58,15 @@ $(document).ready(function(){
                 <li>{{ i.revision }}&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://192.168.5.143/urtracker/Pts/{{ i.url }}">点击查看</a></li>
             {% endfor %}
         </ul>
+
+        <HR>
+        <p><b>测试/修改中：</b>
+        <ul>
+            {% for i in testingList %}
+                <li><a href="http://192.168.5.143/urtracker/Pts/{{ i.url }}">{{ i.title }}</a></li>
+            {% endfor %}
+        </ul>
+
         <HR>
         <p><b>待制作版本({{ count }})：</b><p> {{ todo | wordwrap:5 }} </p>
 

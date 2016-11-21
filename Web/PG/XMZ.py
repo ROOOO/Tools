@@ -20,8 +20,8 @@ if __name__ == '__main__':
   		'URTracker_Branch' : xmz_cfg['URTracker']['Branch'],
   		})
 
-	_min = revisions[3]
-	_max = revisions[4]
+	_min = revisions[4][0]
+	_max = revisions[5][0]
 	xmz_svn = CXMZ_SVN('XMZ.json', _min if _min < xmz_cfg['Min'] and _min != 0 else xmz_cfg['Min'], _max)
 	lists = xmz_svn.CheckLogs(list(revisions[0]) + list(revisions[1]), revisions[2])
 	blackList = lists[0]

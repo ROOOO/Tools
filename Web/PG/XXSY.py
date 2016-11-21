@@ -20,8 +20,8 @@ if __name__ == '__main__':
   		'URTracker_Branch' : xxsy_cfg['URTracker']['Branch'],
   		})
 
-	_min = revisions[3]
-	_max = revisions[4]
+	_min = revisions[4][0]
+	_max = revisions[5][0]
 	xxsy_svn = CXXSY_SVN('XXSY.json', _min if _min < xxsy_cfg['Min'] and _min != 0 else xxsy_cfg['Min'], _max)
 	lists = xxsy_svn.CheckLogs(list(revisions[0]) + list(revisions[1]), revisions[2])
 	blackList = lists[0]
@@ -32,6 +32,10 @@ if __name__ == '__main__':
 	revisions[2].sort()
 
 	block = ''
+	for t in revisions[3]:
+		# print t, revisions[3][t]
+		block += t + '\t' + revisions[3][t] + '\t' + 'testing\n'
+
 	for b in blackList:
 		print b.revision, b.author, b.time, b.log
 		# block += b.revision + '\t' + b.author + '\t' + b.time + '\t"' + b.log + '"\t' + 'eol\n'

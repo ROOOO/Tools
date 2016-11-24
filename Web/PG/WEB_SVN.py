@@ -42,7 +42,10 @@ class CWEB_SVN:
 
 	for b in blackList:
 		print b.revision, b.author, b.time, b.log
-		logs = b.log.decode('gb2312').encode('utf-8')
+                if ss.GetSystemFlag() == 'Linux':
+			logs = b.log
+		else:
+			logs = b.log.decode('gb2312').encode('utf-8')
 		block += 'black\t' + b.revision + '\t' + b.author + '\t' + b.time + '\t"""' + logs + '"""\t' + 'black\n'
 		# block += b.revision + '\t' + b.author + '\t' + b.time + '\t' + 'black\n'
 

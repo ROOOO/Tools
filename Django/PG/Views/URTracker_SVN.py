@@ -26,8 +26,11 @@ def URTracker_SVN(request, template, logFile):
             'title' : svn[1],
             })
     blackList = []
-    for svn in re.findall(re.compile(r'(.*?)black\n'), svns):
-        blackList.append(svn)
+    for svn in re.findall(re.compile(r'black\t(.*?)\t"""(.*?)"""\tblack\n', re.S), svns):
+        blackList.append({
+            'info' : svn[0],
+            'log' : svn[1],
+            })
     wrongList = []
     for svn in re.findall(re.compile(r'(.*?)\t(.*?)\twrong\n'), svns):
         wrongList.append({

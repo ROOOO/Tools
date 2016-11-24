@@ -4,31 +4,12 @@
     <title>
     	寻仙手游小黑账查询
     </title>
-<head>
-    <meta charset="utf-8" />
-<!-- <script src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.min.js"></script> 
-<script>
-$(document).ready(function(){
-    $("#flip").click(function(){
-        $("#panel").slideToggle("slow");
-    });
-});
-</script>
-
-<style>
-#panel, #flip {
-    padding: 5px;
-    text-align: center;
-    background-color: #e5eecc;
-    border: solid 1px #c3c3c3;
-}
-
-#panel {
-    padding: 50px;
-    display: none;
-}
-</style> -->
-</head>
+    <head>
+        <meta charset="utf-8" />
+        {% load staticfiles %}
+        <script src="{% static 'Common/jquery-1.4.min.js' %}"></script>
+        <script src="{% static 'Javascript/SlideToggle.js' %}"></script>
+    </head>
 
 
     <body>
@@ -40,15 +21,33 @@ $(document).ready(function(){
             </ul>
         </div> -->
 
+        <style type="text/css"> 
+        .panel,.flip
+        {
+            padding:5px;
+            background-color:#fafafa;
+            border:solid 1px #c3c3c3;
+        }
+        .panel
+        {
+            /*padding:50px;*/
+            background-color:#ffffff;
+            display:none;
+        }
+        </style>
         <HR>
 
         <div>
-        <p><b>未提交分支申请：</b></p>
+        <p><b>未提交分支申请：</b>
+        <button id='slideAll'>展开</button></p>
         <ul>
             {% for i in blackList %}
-                {% if "," in i %}
+                {% if "," in i.info %}
                 {% else %}
-                    <li>{{ i }}</li>
+                    <li>
+                        <div class="flip">{{ i.info }}</div>
+                        <div class="panel"><pre>{{ i.log }}</pre></div>
+                    </li>
                 {% endif %}
             {% endfor %}
         </ul>

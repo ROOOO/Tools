@@ -2,11 +2,11 @@
 
 from PG import *
 
-class CXXSY_WEB(CPGTracker):
+class CPG_WEB(CPGTracker):
   def __init__(self, CfgFilePath):
     CPGTracker.__init__(self, CfgFilePath)
 
-class CXXSY_SVN(CPGSVN):
+class CPG_SVN(CPGSVN):
   def __init__(self, CfgFilePath, rMin, rMax):
     CPGSVN.__init__(self, CfgFilePath, rMin, rMax)
 
@@ -19,14 +19,14 @@ class CWEB_SVN:
 	ss = CSystem()
 	cfg['Driver']['use'] = 1 if ss.GetSystemFlag() == 'Linux' else cfg['Driver']['use']
 
-	web = CXXSY_WEB(self.CfgFilePath)
+	web = CPG_WEB(self.CfgFilePath)
 	revisions = web.URTrackerCheck({
   		'URTracker_Branch' : cfg['URTracker']['Branch'],
   		})
 
 	_min = revisions[4][0]
 	_max = revisions[5][0]
-	svn = CXXSY_SVN(self.CfgFilePath, _min if _min < cfg['Min'] and _min != 0 else cfg['Min'], _max)
+	svn = CPG_SVN(self.CfgFilePath, _min if _min < cfg['Min'] and _min != 0 else cfg['Min'], _max)
 	lists = svn.CheckLogs(list(revisions[0]) + list(revisions[1]), revisions[2])
 	blackList = lists[0]
 	blackList.sort()
@@ -55,8 +55,8 @@ class CWEB_SVN:
 			print w
 			block += str(w) + '\t' + on_and_off_d[str(w)].url + '\t' + 'wrong\n'
 
-	TMP_FILE = os.path.join(ss.GetDirName(ss.GetDirName(ss.GetRealPath(__file__))), 'PG_OUTPUTS', '_' + self.ProjName + 'tracker_svn.txt')
-	FILE = os.path.join(ss.GetDirName(ss.GetDirName(ss.GetRealPath(__file__))), 'PG_OUTPUTS', self.ProjName + 'tracker_svn.txt')
+	TMP_FILE = os.path.join(ss.GetDirName(ss.GetDirName(ss.GetRealPath(__file__))), 'PG_OUTPUTS', '_' + self.ProjName + '_tracker_svn.txt')
+	FILE = os.path.join(ss.GetDirName(ss.GetDirName(ss.GetRealPath(__file__))), 'PG_OUTPUTS', self.ProjName + '_tracker_svn.txt')
 
 	block += ','.join(revisions[2])
 	block += ',\n'
@@ -64,7 +64,7 @@ class CWEB_SVN:
 	ss.WriteFile(TMP_FILE, block)
 	ss.CopyFile(TMP_FILE, FILE)
 
-	# ss.RunProcess('scp "' + FILE + '" wangqinlei@192.168.6.55:/home/wangqinlei/PGTools/checkResult_xxsy.txt', True)
+	# ss.RunProcess('scp "' + FILE + '" wangqinlei@192.168.6.55:/home/wangqinlei/PGTools/checkResult_PG.txt', True)
 
 	if ss.GetSystemFlag() == 'Linux':
 		ss.KillProcess([cfg['Cookie']], [cfg['Cookie']])

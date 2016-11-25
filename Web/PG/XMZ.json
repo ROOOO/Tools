@@ -1,4 +1,7 @@
 {
+	"Web" : {
+		"Title" : "侠魔志小黑账查询"
+	},
 	"Cookie" : "/tmp/xmz",
 	"Min" : 41770,
 	"SVNPath" : {

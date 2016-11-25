@@ -12,4 +12,4 @@ from Views.URTracker_SVN import URTracker_SVN
 sys.path.pop(len(sys.path) - 1)
 
 def URTracker_SVN_XMZ(request):
-    return URTracker_SVN(request, 'xmz.html', 'xmz_tracker_svn.txt')
+    return URTracker_SVN(request, 'xmz_tracker_svn.txt', 'XMZ.json')

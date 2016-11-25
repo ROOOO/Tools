@@ -1,6 +1,6 @@
 RefreshPage = function() {
   setTimeout(function() {
-    if ($('#autoRefresh').hasClass('refreshOn')) {
+    if ($('#autoRefresh').hasClass('refreshOn') && $('#input').text() == '') {
       location.reload();      
     } else {
       RefreshPage();
@@ -38,8 +38,23 @@ $(document).ready(function(){
     }
   });
   $('#input').keyup(function(){
-    $('#keycount').text($(this).val().length);
+    var val = $(this).val();
+    // $('#keycount').text(val.length);
+    $('label').each(function(){
+      if (!($(this).attr('class').substring(0, val.length) == val) && val != '') {
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
   });
+
+  var tasks = $('#todoListTask').text().split(',');
+  var todoListTask = '';
+  for (var i = 0; i < tasks.length; i++) {
+    todoListTask += ('<b>' + tasks[i] + '</b>&nbsp;&nbsp;&nbsp;&nbsp;')
+  }
+  $('#todoListTask').html(todoListTask)
 
   RefreshPage()
 });

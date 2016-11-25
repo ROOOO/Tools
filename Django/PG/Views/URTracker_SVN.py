@@ -46,6 +46,9 @@ def URTracker_SVN(request, logFile, CfgFilePath):
             'task' : svn[1],
             })
 
+    todoListTask = re.findall(r'(.*?)\ttodoListTask\n', svns)
+    todoListTask = todoListTask[0] if isinstance(todoListTask, list) and len(todoListTask) > 0 else ''
+    
     rsp = {}
     rsp['title'] = cfg['Web']['Title']
     rsp['testingList'] = testingList
@@ -53,5 +56,6 @@ def URTracker_SVN(request, logFile, CfgFilePath):
     rsp['wrongList'] = wrongList
     rsp['modTime'] = ss.StrfTime(ss.GetFileTime('m', FILE) + 8 * 60 * 60)
     rsp['todoList'] = todoList
+    rsp['todoListTask'] = todoListTask
 
     return render_to_response('URTracker_SVN.html', rsp)

@@ -66,8 +66,15 @@ class CWEB_SVN:
 
 	# block += ','.join(revisions[2])
 	# block += ',\n'
+	todoListTask = []
 	for t in todoList:
 		block += str(t) + '\t' + revisions[2][t] + '\ttodo\n'
+		tasks = re.split(r';', revisions[2][t])
+		for task in tasks:
+			if task not in todoListTask:
+				todoListTask.append(task)
+	todoListTask.sort()
+	block += ','.join(todoListTask) + '\ttodoListTask\n'
 
 	ss.WriteFile(TMP_FILE, block)
 	ss.CopyFile(TMP_FILE, FILE)

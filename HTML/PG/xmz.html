@@ -38,13 +38,13 @@
         <HR>
 
         <div>
-        <p><b>未提交分支申请：</b>
+        <p id="blackListTitle"><b>未提交分支申请：</b>
         <button id='slideAll'>展开</button></p>
         <ul>
             {% for i in blackList %}
                 {% if "," in i.info %}
                 {% else %}
-                    <li>
+                    <li class="blacklist">
                         <div class="flip">{{ i.info }}</div>
                         <div class="panel"><pre>{{ i.log }}</pre></div>
                     </li>

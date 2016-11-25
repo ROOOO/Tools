@@ -38,13 +38,13 @@
         <HR>
 
         <div>
-        <p><b>未提交分支申请：</b>
+        <p id="blackListTitle"><b>未提交分支申请：</b>
         <button id='slideAll'>展开</button></p>
         <ul>
             {% for i in blackList %}
                 {% if "," in i.info %}
                 {% else %}
-                    <li>
+                    <li class="blackList">
                         <div class="flip">{{ i.info }}</div>
                         <div class="panel"><pre>{{ i.log }}</pre></div>
                     </li>
@@ -54,7 +54,7 @@
         <p><b>写错 Branch Revision：</b></p>
         <ul>
             {% for i in wrongList %}
-                <li>{{ i.revision }}&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://192.168.5.143/urtracker/Pts/{{ i.url }}">点击查看</a></li>
+                <li class="wrongList">{{ i.revision }}&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://192.168.5.143/urtracker/Pts/{{ i.url }}">点击查看</a></li>
             {% endfor %}
         </ul>
 

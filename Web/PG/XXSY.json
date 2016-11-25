@@ -33,7 +33,7 @@
 	},
 	"RegExp" : {
 		"Revisions" : {
-			"Re" : "HyperLink1\" class=\"issue_link\" href=\"(.*?)\">(.*?)</a>.*?<td>.*?<span id.*?\">(.*?)</span>.*?</td><td>.*?</td><td>(.*?)</td><td style=.*?/tr>",
+			"Re" : "HyperLink1\" class=\"issue_link\" href=\"(.*?)\">(.*?)</a>.*?<td>.*?<span id.*?\">(.*?)</span>.*?</td><td>.*?</td><td>(.*?)</td><td style=.*?/span>.*?</td><td>.*?</td><td>.*?</td><td>(.*?)</td>\n",
 			"States_On" : [
 				"制作中",
 				"分配测试",

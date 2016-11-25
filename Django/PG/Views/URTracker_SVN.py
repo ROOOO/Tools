@@ -40,8 +40,11 @@ def URTracker_SVN(request, logFile, CfgFilePath):
             'url' : svn[1],
             })
     todoList = []
-    for svn in re.findall(re.compile(r'(\d+),', re.S), svns):
-        todoList.append(svn)
+    for svn in re.findall(re.compile(r'(.*?)\t(.*?)\ttodo\n'), svns):
+        todoList.append({
+            'revision' : svn[0],
+            'task' : svn[1],
+            })
 
     rsp = {}
     rsp['title'] = cfg['Web']['Title']
@@ -49,7 +52,6 @@ def URTracker_SVN(request, logFile, CfgFilePath):
     rsp['blackList'] = blackList
     rsp['wrongList'] = wrongList
     rsp['modTime'] = ss.StrfTime(ss.GetFileTime('m', FILE) + 8 * 60 * 60)
-    rsp['todo'] = ', '.join(todoList)
-    rsp['count'] = len(todoList)
+    rsp['todoList'] = todoList
 
     return render_to_response('URTracker_SVN.html', rsp)

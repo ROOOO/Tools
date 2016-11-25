@@ -27,13 +27,16 @@ class CWEB_SVN:
 	_min = revisions[4][0]
 	_max = revisions[5][0]
 	svn = CPG_SVN(self.CfgFilePath, _min if _min < cfg['Min'] and _min != 0 else cfg['Min'], _max)
-	lists = svn.CheckLogs(list(revisions[0]) + list(revisions[1]), revisions[2])
+	lists = svn.CheckLogs(list(revisions[0]) + list(revisions[1]), list(revisions[2]))
 	blackList = lists[0]
 	blackList.sort()
 	wrongList = lists[1]
 	wrongList.sort()
+	todoList = revisions[2].copy()
+	todoList = list(todoList)
+	todoList.sort()
 
-	revisions[2].sort()
+	# revisions[2].sort()
 
 	block = ''
 	for t in revisions[3]:
@@ -46,7 +49,7 @@ class CWEB_SVN:
 			logs = b.log
 		else:
 			logs = b.log.decode('gb2312').encode('utf-8')
-		block += 'black\t' + b.revision + '\t' + b.author + '\t' + b.time + '\t"""' + logs + '"""\t' + 'black\n'
+		block += 'black\t' + b.revision + '\t' + b.author + '\t' + b.time + '\t"""' + logs + '"""\tblack\n'
 		# block += b.revision + '\t' + b.author + '\t' + b.time + '\t' + 'black\n'
 
 	on_and_off_d = revisions[0].copy()
@@ -56,13 +59,15 @@ class CWEB_SVN:
 	for w in wrongList:
 		if int(w) >= int(cfg['Min']):
 			print w
-			block += str(w) + '\t' + on_and_off_d[str(w)].url + '\t' + 'wrong\n'
+			block += str(w) + '\t' + on_and_off_d[str(w)].url + '\twrong\n'
 
 	TMP_FILE = os.path.join(ss.GetDirName(ss.GetDirName(ss.GetRealPath(__file__))), 'PG_OUTPUTS', '_' + self.ProjName + '_tracker_svn.txt')
 	FILE = os.path.join(ss.GetDirName(ss.GetDirName(ss.GetRealPath(__file__))), 'PG_OUTPUTS', self.ProjName + '_tracker_svn.txt')
 
-	block += ','.join(revisions[2])
-	block += ',\n'
+	# block += ','.join(revisions[2])
+	# block += ',\n'
+	for t in todoList:
+		block += str(t) + '\t' + revisions[2][t] + '\ttodo\n'
 
 	ss.WriteFile(TMP_FILE, block)
 	ss.CopyFile(TMP_FILE, FILE)

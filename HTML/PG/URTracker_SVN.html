@@ -14,6 +14,8 @@
 
     <body>
         <p>每30秒页面自动刷新&nbsp;&nbsp;&nbsp;&nbsp;<button id="autoRefresh" class="refreshOn">关闭</button></p>
+        <input id="input" maxlength="10">
+        <p id="keycount">0</p>
         <HR>
 
         <div>
@@ -46,7 +48,17 @@
         </ul>
 
         <HR>
-        <p><b>待制作版本({{ count }})：</b><p> {{ todo | wordwrap:5 }} </p>
+        <p><b>待制作版本({{ todoList|length }})：</b>
+            
+        <p> 
+            {% for i in todoList %}
+                {% if forloop.counter == todoList|length %}
+                    <label class='{{ i.task }}'>{{ i.revision }}</label>
+                {% else %}
+                    <label class='{{ i.task }}'>{{ i.revision }},</label>
+                {% endif %}
+            {% endfor %}
+        </p>
 
         <HR>
         <p><b>更新时间：{{ modTime }}</b></p>

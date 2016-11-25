@@ -92,8 +92,11 @@ class CPGTracker:
 
       if item[2] in self.Settings['RegExp']['Revisions']['States_Todo']:
         for r in revisions_s:
-          if r not in todo:
-            todo.append(r)
+          if not todo.has_key(r):
+            try:
+              todo[r] = item[4]
+            except:
+              todo[r] = 'x'
 
       if item[2] in self.Settings['RegExp']['Revisions']['States_Testing']:
         if not testing.has_key(item[0]):
@@ -115,7 +118,7 @@ class CPGTracker:
       # '_max' = [0],
       {},
       {},
-      [],
+      {},
       {},
       [0],
       [0],

@@ -37,5 +37,9 @@ $(document).ready(function(){
       $(this).text('关闭');
     }
   });
+  $('#input').keyup(function(){
+    $('#keycount').text($(this).val().length);
+  });
+
   RefreshPage()
 });

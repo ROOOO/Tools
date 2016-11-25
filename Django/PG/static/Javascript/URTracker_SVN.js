@@ -1,3 +1,13 @@
+RefreshPage = function() {
+  setTimeout(function() {
+    if ($('#autoRefresh').hasClass('refreshOn')) {
+      location.reload();      
+    } else {
+      RefreshPage();
+    }
+    }, 30 * 1000);
+}
+
 $(document).ready(function(){
   $(".flip").click(function(){
     $(".panel:eq(" + $(this).index(".flip") + ")").slideToggle("fast");
@@ -18,4 +28,14 @@ $(document).ready(function(){
   } else {
   	$('#slideAll').show();
   }
+  $('#autoRefresh').click(function(){
+    if ($(this).hasClass('refreshOn')) {
+      $(this).removeClass('refreshOn');
+      $(this).text('开启');
+    } else {
+      $(this).addClass('refreshOn');
+      $(this).text('关闭');
+    }
+  });
+  RefreshPage()
 });

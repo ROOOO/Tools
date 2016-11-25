@@ -41,10 +41,13 @@ $(document).ready(function(){
     var val = $(this).val();
     // $('#keycount').text(val.length);
     $('label').each(function(){
-      if (!($(this).attr('class').substring(0, val.length) == val) && val != '') {
-        $(this).hide();
-      } else {
-        $(this).show();
+      var classStr = $(this).attr('class').split(';');
+      for (var i = 0; i < classStr.length; i++) {
+        if (!(classStr[i].substring(0, val.length) == val) && val != '') {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
       }
     });
   });

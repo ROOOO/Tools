@@ -1,14 +1,14 @@
-RefreshPage = function() {
-  setTimeout(function() {
-    if ($('#autoRefresh').hasClass('refreshOn') && $('#input').text() == '') {
-      location.reload();      
-    } else {
-      RefreshPage();
-    }
-    }, 30 * 1000);
-}
-
 $(document).ready(function(){
+  var RefreshPage = function() {
+    setTimeout(function() {
+      if ($('#autoRefresh').hasClass('refreshOn') && $('#filterInput').val() == '') {
+        location.reload();    
+      } else {
+        RefreshPage();
+      }
+      }, 30 * 1000);
+  }
+
   $(".flip").click(function(){
     $(".panel:eq(" + $(this).index(".flip") + ")").slideToggle("fast");
   });
@@ -37,16 +37,24 @@ $(document).ready(function(){
       $(this).text('关闭');
     }
   });
-  $('#input').keyup(function(){
+  $('#filterInput').keyup(function(e){
     var val = $(this).val();
     // $('#keycount').text(val.length);
     $('label').each(function(){
+      if (val == '') {
+        $(this).show();
+        return;
+      }
+
       var classStr = $(this).attr('class').split(';');
       for (var i = 0; i < classStr.length; i++) {
-        if (!(classStr[i].substring(0, val.length) == val) && val != '') {
-          $(this).hide();
-        } else {
+        if ((e.which != 13 && classStr[i].substring(0, val.length) == val) || (e.which == 13 && classStr[i] == val)) {
           $(this).show();
+          if (e.which == 13) {
+            return;
+          }
+        } else {
+          $(this).hide();
         }
       }
     });
@@ -57,7 +65,7 @@ $(document).ready(function(){
   for (var i = 0; i < tasks.length; i++) {
     todoListTask += ('<b>' + tasks[i] + '</b>&nbsp;&nbsp;&nbsp;&nbsp;')
   }
-  $('#todoListTask').html(todoListTask)
+  $('#todoListTask').html(todoListTask);
 
   RefreshPage()
 });

@@ -49,15 +49,11 @@
         <p><b>待制作版本({{ todoList|length }})：</b>
         <div>
         <p align="center" id="todoListTask">{{ todoListTask }}</p>
-        <p align="center">筛选&nbsp;&nbsp;<input type="text" name="filter" id="input" maxlength="10"></p>
+        <p align="center">筛选&nbsp;&nbsp;<input type="text" name="filter" id="filterInput" maxlength="10"></p>
         </div>
         <p> 
             {% for i in todoList %}
-                <!-- {% if forloop.counter == todoList|length %} -->
-                    <!-- <label class='{{ i.task }}'>{{ i.revision }}</label> -->
-                <!-- {% else %} -->
-                    <label class='{{ i.task }}'>{{ i.revision }},</label>
-                <!-- {% endif %} -->
+                <label class='{{ i.task }}'>{{ i.revision }},</label>
             {% endfor %}
         </p>
 

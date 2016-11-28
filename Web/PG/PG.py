@@ -3,7 +3,8 @@
 import re
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+PROJ_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(PROJ_DIR)
 from util.util import *
 sys.path.pop(len(sys.path) - 1)
 
@@ -21,6 +22,9 @@ class CPGTracker:
     self.__Web = CWeb(self.Settings, '', self.Settings['Cookie'])
     self.__Element = CWebElement(self.__Web.GetDriver())
     self.__PageNum = 0
+    self.__CfgFilePath = CfgFilePath
+    self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
+    self.__compress = CCompress()
 
   def __Login(self):
     self.__Web.Goto(self.__selfSettings['URTracker']['Login'])
@@ -53,12 +57,12 @@ class CPGTracker:
     #   self.__Web.WaitUntil('invisibility_of_element_located', self.__selfSettings['Buttons']['WaitingPanel']['By'], self.__selfSettings['Buttons']['WaitingPanel']['Arg'])
 
   def __RegRevisions(self, src, lists):
-    on = lists[0]
-    off = lists[1]
-    todo = lists[2]
-    testing = lists[3]
-    _min = lists[4]
-    _max = lists[5]
+    # on = lists[0]
+    # off = lists[1]
+    # todo = lists[2]
+    # testing = lists[3]
+    # _min = lists[4]
+    # _max = lists[5]
     src = re.sub(re.compile(r'&nbsp;'), '', src)
     pattern1 = re.compile(self.Settings['RegExp']['Revisions']['Re'], re.S)
     items = re.findall(pattern1, src)
@@ -68,40 +72,44 @@ class CPGTracker:
       if item[3] == '' or item[3] == ' ' or item[3] == u'\xa0':
         continue
       revisions_s = re.split(pattern2, item[3])
-      if item[2] in self.Settings['RegExp']['Revisions']['States_On']:
-        for r in revisions_s:
-          if not on.has_key(r):
-            on[r] = STrackerItem({
-              'url' : item[0],
-              'state' : item[2],
-              'revisions' : item[3],
-              }) 
-      elif item[2] in self.Settings['RegExp']['Revisions']['States_Off']:
-        for r in revisions_s:
-          if not off.has_key(r):
-            off[r] = STrackerItem({
-              'url' : item[0],
-              'state' : item[2],
-              'revisions' : item[3],
-              })
+      # if item[2] in self.Settings['RegExp']['Revisions']['States_On']:
+      print revisions_s
+      for r in revisions_s:
+        if self.__CfgFilePath == 'XXSY.json':
+          self.__db.cursor.execute('insert into XXSY_xxsy_urtracker values (NULL, ?, ?, ?, ?);', (item[0], (item[2]), r, (item[4])))
+          # if not on.has_key(r):
+          #   on[r] = STrackerItem({
+          #     'url' : item[0],
+          #     'state' : item[2],
+          #     'revisions' : item[3],
+          #     }) 
+      # elif item[2] in self.Settings['RegExp']['Revisions']['States_Off']:
+      #   for r in revisions_s:
+      #     if not off.has_key(r):
+      #       off[r] = STrackerItem({
+      #         'url' : item[0],
+      #         'state' : item[2],
+      #         'revisions' : item[3],
+      #         })
 
-      if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
-        _min[0] = min(revisions_s) if min(revisions_s) < _min[0] or _min[0] == 0 else _min[0]
-        _max[0] = max(revisions_s) if max(revisions_s) > _max[0] or _max[0] == 0 else _max[0]
-        b = True
+      # if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
+      #   _min[0] = min(revisions_s) if min(revisions_s) < _min[0] or _min[0] == 0 else _min[0]
+      #   _max[0] = max(revisions_s) if max(revisions_s) > _max[0] or _max[0] == 0 else _max[0]
+      #   b = True
 
-      if item[2] in self.Settings['RegExp']['Revisions']['States_Todo']:
-        for r in revisions_s:
-          if not todo.has_key(r):
-            try:
-              todo[r] = item[4]
-            except:
-              todo[r] = 'x'
+      # if item[2] in self.Settings['RegExp']['Revisions']['States_Todo']:
+      #   for r in revisions_s:
+      #     if not todo.has_key(r):
+      #       try:
+      #         todo[r] = item[4]
+      #       except:
+      #         todo[r] = 'x'
 
-      if item[2] in self.Settings['RegExp']['Revisions']['States_Testing']:
-        if not testing.has_key(item[0]):
-          testing[item[0]] = item[1]
-
+      # if item[2] in self.Settings['RegExp']['Revisions']['States_Testing']:
+      #   if not testing.has_key(item[0]):
+      #     testing[item[0]] = item[1]
+    self.__db.Commit()
+    print self.__db.cursor.execute('select * from XXSY_xxsy_urtracker limit 5').fetchall()[0][2].encode('gbk')
     return b
 
   def GetRevisions(self):

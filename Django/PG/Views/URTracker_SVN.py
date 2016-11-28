@@ -41,7 +41,6 @@ def URTracker_SVN(request, logFile, CfgFilePath):
             })
     todoList = []
     for svn in re.findall(re.compile(r'(.*?)\t(.*?)\ttodo\n'), svns):
-        print svn
         todoList.append({
             'revision' : svn[0],
             'task' : svn[1],

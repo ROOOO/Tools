@@ -50,9 +50,9 @@ $(document).ready(function(){
       for (var i = 0; i < classStr.length; i++) {
         if ((e.which != 13 && classStr[i].substring(0, val.length) == val) || (e.which == 13 && classStr[i] == val)) {
           $(this).show();
-          if (e.which == 13) {
-            return;
-          }
+          // if (e.which == 13) {
+            break;
+          // }
         } else {
           $(this).hide();
         }

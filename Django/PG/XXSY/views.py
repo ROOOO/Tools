@@ -9,7 +9,8 @@ import re
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Views.URTracker_SVN import URTracker_SVN
+from XXSY.models import *
 sys.path.pop(len(sys.path) - 1)
 
 def URTracker_SVN_XXSY(request):
-    return URTracker_SVN(request, 'xxsy_tracker_svn.txt', 'XXSY.json')
+    return URTracker_SVN(request, 'XXSY.json')

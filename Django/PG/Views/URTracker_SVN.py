@@ -12,50 +12,37 @@ sys.path.append(BASE_URL)
 from util.util import *
 sys.path.pop(len(sys.path) - 1)
 
-def URTracker_SVN(request, logFile, CfgFilePath):
+def URTracker_SVN(request, CfgFilePath):
     ss = CSystem()
     cfg = CSettings(os.path.join(BASE_URL, 'Web', 'PG', CfgFilePath)).Json()
-
-    FILE = os.path.join(ss.GetDirName(ss.GetDirName(ss.GetDirName(ss.GetDirName(ss.GetRealPath(__file__))))), 'Web', 'PG_OUTPUTS', logFile)
-
-    with open(FILE, 'r+') as file:
-        svns = file.read()
+    db = CDBSqlite(os.path.join(BASE_URL, 'Django', 'PG', 'db.sqlite3'))
 
     testingList = []
-    for svn in re.findall(re.compile(r'(.*?)\t(.*?)\ttesting\n'), svns):
-        testingList.append({
-            'url' : svn[0],
-            'title' : svn[1],
-            })
-    blackList = []
-    for svn in re.findall(re.compile(r'black\t(.*?)\t"""(.*?)"""\tblack\n', re.S), svns):
-        blackList.append({
-            'info' : svn[0],
-            'log' : svn[1],
-            })
-    wrongList = []
-    for svn in re.findall(re.compile(r'(.*?)\t(.*?)\twrong\n'), svns):
-        wrongList.append({
-            'revision' : svn[0],
-            'url' : svn[1],
-            })
-    todoList = []
-    for svn in re.findall(re.compile(r'(.*?)\t(.*?)\ttodo\n'), svns):
-        todoList.append({
-            'revision' : svn[0],
-            'task' : svn[1],
-            })
+    testingList = db.cursor.execute('select url, title from XXSY_URTracker where state == "分支验证";').fetchall()
 
-    todoListTask = re.findall(r'(.*?)\ttodoListTask\n', svns)
-    todoListTask = todoListTask[0] if isinstance(todoListTask, list) and len(todoListTask) > 0 else ''
+    blackList = []
+    blackList = db.cursor.execute('select revision, author, svnDate, log from XXSY_SVNLog where revision not in (select revision from XXSY_URTracker);').fetchall()
+
+    wrongList = []
+    wrongList = db.cursor.execute('select revision, url from XXSY_URTracker where revision not in (select revision from XXSY_SVNLog) and revision >= (select max(revision) from XXSY_SVNLog);').fetchall()
+
+    todoList = []
+    todoList = db.cursor.execute('select revision, task from XXSY_URTracker where state == "等待交付运营商";').fetchall()
+
+    todoListTask = []
+    for item in todoList:
+        for task in str(item[1]).split(';'):
+            if task not in todoListTask:
+                todoListTask.append(task)
+    todoListTask.sort()
     
     rsp = {}
     rsp['title'] = cfg['Web']['Title']
     rsp['testingList'] = testingList
     rsp['blackList'] = blackList
     rsp['wrongList'] = wrongList
-    rsp['modTime'] = ss.StrfTime(ss.GetFileTime('m', FILE) + 8 * 60 * 60)
+    # rsp['modTime'] = ss.StrfTime(ss.GetFileTime('m', FILE) + 8 * 60 * 60)
     rsp['todoList'] = todoList
-    rsp['todoListTask'] = todoListTask
+    rsp['todoListTask'] = '\t'.join(todoListTask)
 
     return render_to_response('URTracker_SVN.html', rsp)

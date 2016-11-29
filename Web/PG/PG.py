@@ -56,13 +56,15 @@ class CPGTracker:
     items = re.findall(pattern1, src)
     pattern2 = re.compile(r',|，')
     b = False
+    idx = self.__db.cursor.execute('select max(id) from XXSY_URTracker').fetchone()[0] or 0
     for item in items:
       if item[3] == '' or item[3] == ' ' or item[3] == u'\xa0':
         continue
       revisions_s = re.split(pattern2, item[3])
       for r in revisions_s:
         if self.__CfgFilePath == 'XXSY.json':
-            self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (NULL, ?, ?, ?, ?, ?);', (item[0], item[1], item[2], r, item[4]))
+            idx += 1
+            self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (?, ?, ?, ?, ?, ?);', (idx, item[0], item[1], item[2], r, item[4]))
 
       if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
         b = True

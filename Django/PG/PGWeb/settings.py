@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'PGWeb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'tools',
+        'USER': 'king',
+        'PASSWORD': 'wqlwqlwql',
+        # 'HOST': '10.211.55.6',
+        'HOST': '138.68.62.86',
     }
 }
 

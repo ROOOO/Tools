@@ -83,7 +83,8 @@ DATABASES = {
         'USER': 'king',
         'PASSWORD': 'wqlwqlwql',
         # 'HOST': '10.211.55.6',
-        'HOST': '138.68.62.86',
+        # 'HOST': '138.68.62.86',
+        'HOST': '10.211.55.128',
     }
 }
 

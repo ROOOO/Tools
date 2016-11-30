@@ -18,6 +18,7 @@ class CPGTracker:
     self.__PageNum = 0
     self.__CfgFilePath = CfgFilePath
     self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
+    # self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '10.211.55.128')
     self.__compress = CCompress()
 
   def __Login(self):
@@ -56,7 +57,8 @@ class CPGTracker:
     items = re.findall(pattern1, src)
     pattern2 = re.compile(r',|，')
     b = False
-    idx = self.__db.cursor.execute('select max(id) from XXSY_URTracker').fetchone()[0] or 0
+    self.__db.cursor.execute('select max(id) from XXSY_URTracker')
+    idx = self.__db.cursor.fetchone()[0] or 0
     for item in items:
       if item[3] == '' or item[3] == ' ' or item[3] == u'\xa0':
         continue
@@ -118,6 +120,7 @@ class CPGSVN:
     self.__logs = ''
     self.__logItems = {}
     self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
+    # self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '10.211.55.128')
     self.__GetLogs()
 
   def __GetLogs(self):
@@ -128,7 +131,12 @@ class CPGSVN:
     items = re.findall(pattern, self.__logs)
     print self.__rMax, self.__rMin
     for item in items:
-      if not self.__db.cursor.execute('select 1 from XXSY_SVNLog where revision=?', (item[0],)).fetchone():
-        self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (?, ?, ?, ?)', (item[0], item[1], item[2], item[3].decode('gbk') if item[3] else ''))
+      self.__db.cursor.execute('select 1 from XXSY_SVNLog where revision=?', (item[0],))
+      if not self.__db.cursor.fetchone():
+        if self.__ss.GetSystemFlag() != 'Linux':
+          self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (?, ?, ?, ?)', (item[0], item[1], item[2], item[3].decode('gbk') if item[3] else ''))
+        else:
+          print item[3]
+          self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (?, ?, ?, ?)', (item[0], item[1], item[2], item[3] if item[3] else ''))
     self.__db.Commit()
     self.__db.Close()

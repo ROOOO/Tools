@@ -23,3 +23,8 @@ urlpatterns = [
     url(r'^xxsy/', URTracker_SVN_XXSY),
     url(r'^xmz/', URTracker_SVN_XMZ),
 ]
+
+from django.conf.urls.static import static
+import os
+import settings
+urlpatterns += static('/static/', document_root = os.path.join(settings.BASE_DIR, 'static'))

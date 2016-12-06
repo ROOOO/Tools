@@ -21,19 +21,16 @@
         <button id='slideAll'>展开</button></p>
         <ul>
             {% for i in blackList %}
-                {% if "," in i.info %}
-                {% else %}
-                    <li class="blackList">
-                        <div class="flip">{{ i.info }}</div>
-                        <div class="panel"><pre>{{ i.log }}</pre></div>
-                    </li>
-                {% endif %}
+                <li class="blackList">
+                    <div class="flip">{{ i.0 }} {{ i.1 }} {{ i.2 }}</div>
+                    <div class="panel"><pre>{{ i.3 }}</pre></div>
+                </li>
             {% endfor %}
         </ul>
         <p><b>写错 Branch Revision：</b></p>
         <ul>
             {% for i in wrongList %}
-                <li class="wrongList">{{ i.revision }}&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://192.168.5.143/urtracker/Pts/{{ i.url }}">点击查看</a></li>
+                <li class="wrongList">{{ i.0 }}&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://192.168.5.143/urtracker/Pts/{{ i.1 }}">点击查看</a></li>
             {% endfor %}
         </ul>
 
@@ -41,19 +38,19 @@
         <p><b>测试/修改中：</b>
         <ul>
             {% for i in testingList %}
-                <li><a href="http://192.168.5.143/urtracker/Pts/{{ i.url }}">{{ i.title }}</a></li>
+                <li><a href="http://192.168.5.143/urtracker/Pts/{{ i.0 }}">{{ i.1 }}</a></li>
             {% endfor %}
         </ul>
 
         <HR>
         <p><b>待制作版本({{ todoList|length }})：</b>
         <div>
-        <p align="center" id="todoListTask">{{ todoListTask }}</p>
+        <pre align="center" id="todoListTask">{{ todoListTask }}</pre>
         <p align="center">筛选&nbsp;&nbsp;<input type="text" name="filter" id="filterInput" maxlength="10"></p>
         </div>
         <p> 
             {% for i in todoList %}
-                <label class='{{ i.task }}'>{{ i.revision }},</label>
+                <label class='{{ i.1 }}'>{{ i.0 }},</label>
             {% endfor %}
         </p>
 

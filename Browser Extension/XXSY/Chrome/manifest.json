@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "xxsy小黑账提醒",
+    "version": "1.0",
+    "description": "xxsy小黑账提醒",
+    "browser_action": {
+        "default_title": "小黑账",
+        "default_popup": "popup.html"
+    },
+    "options_page": "option.html",
+    "permissions": [
+        "*://108.61.200.192:*/",
+        "*://*/"
+    ]
+}

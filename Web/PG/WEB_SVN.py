@@ -8,8 +8,8 @@ class CPG_WEB(CPGTracker):
     CPGTracker.__init__(self, CfgFilePath)
 
 class CPG_SVN(CPGSVN):
-  def __init__(self, CfgFilePath, rMin, rMax):
-	CPGSVN.__init__(self, CfgFilePath, rMin, rMax)
+  def __init__(self, CfgFilePath):
+	CPGSVN.__init__(self, CfgFilePath)
 
 class CWEB_SVN:
   def __init__(self, CfgFilePath, ProjName):
@@ -28,7 +28,7 @@ class CWEB_SVN:
 
 	_min = db.cursor.execute('select min(revision) from XXSY_URTracker where state != "交付完成" order by revision;').fetchone()[0]
 	_max = db.cursor.execute('select max(revision) from XXSY_URTracker where state != "交付完成" order by revision;').fetchone()[0]
-	svn = CPG_SVN(self.CfgFilePath, _min if _min > cfg['Min'] else cfg['Min'], _max)
+	svn = CPG_SVN(self.CfgFilePath)
 
 	if ss.GetSystemFlag() == 'Linux':
 		ss.KillProcess([cfg['Cookie']], [cfg['Cookie']])

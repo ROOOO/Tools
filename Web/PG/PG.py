@@ -110,29 +110,41 @@ class CPGTracker:
       self.__ss.Traceback(Exception, e)      
 
 class CPGSVN:
-  def __init__(self, CfgFilePath, rMin, rMax):
+  def __init__(self, CfgFilePath):
     # 降低耦合，多取一次文件吧
     self.Settings = CSettings(CfgFilePath).Json()
     self.__svnPath = self.Settings['SVNPath']['Branch']
-    self.__rMin = rMin
-    self.__rMax = rMax
+    self.__rMin = self.Settings['Min']
     self.__ss = CSystem()
     self.__logs = ''
     self.__logItems = {}
-    self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
-    # self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '10.211.55.128')
+    # self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
+    self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
+    self.__cursor = self.__db.cursor()
     self.__GetLogs()
 
   def __GetLogs(self):
-    self.__logs = self.__ss.RunProcess(u'svn log -r ' + str(self.__rMin) + ':' + str(self.__rMax) + ' ' + self.__svnPath, True)
-    if self.__logs == '':
-      self.__logs = self.__ss.RunProcess(u'svn log -r ' + str(self.__rMin) + ':' + 'HEAD' + ' ' + self.__svnPath, True)
+    self.__logs = self.__ss.RunProcess(u'svn log -r ' + str(self.__rMin) + ':' + 'HEAD' + ' ' + self.__svnPath, True)
     pattern = re.compile(self.Settings['RegExp']['SVN']['Re'], re.S)
     items = re.findall(pattern, self.__logs)
-    print self.__rMax, self.__rMin
+    __max = self.__rMin
+    try:
+      self.__cursor.execute('select max(revision) from XXSY_SVNLog')
+      __max = self.__cursor.fetchone()[0]
+    except:
+      pass
+
     for item in items:
+      if int(item[0]) <= int(__max):
+        continue
+      print item[0]
       self.__db.cursor.execute('select 1 from XXSY_SVNLog where revision=?', (item[0],))
-      if not self.__db.cursor.fetchone():
+      try:
+        self.__cursor.fetchone():
+      except:
+        pass
+      else:
+      # if not self.__db.cursor.fetchone():
         if self.__ss.GetSystemFlag() != 'Linux':
           self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (?, ?, ?, ?)', (item[0], item[1], item[2], item[3].decode('gbk') if item[3] else ''))
         else:

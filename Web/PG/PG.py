@@ -71,7 +71,7 @@ class CPGTracker:
             if int(r) >= self.__rMin:
               idx += 1
               print str(idx), item[0], item[1], item[2], str(r), item[4]
-              self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (idx, item[0], item[1], item[2], str(r), item[4]))
+              self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (idx, item[0], item[1].encode('utf-8'), item[2].encode('utf-8'), str(r), item[4]))
 
       if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
         b = True

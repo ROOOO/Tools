@@ -20,6 +20,7 @@ class CPGTracker:
     # self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
     self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
     self.__compress = CCompress()
+    self.__rMin = self.Settings['Min']
 
   def __Login(self):
     self.__Web.Goto(self.__selfSettings['URTracker']['Login'])
@@ -65,9 +66,10 @@ class CPGTracker:
       revisions_s = re.split(pattern2, item[3])
       for r in revisions_s:
         if self.__CfgFilePath == 'XXSY.json':
-            idx += 1
-            # print str(idx), item[0], item[1], item[2], str(r), item[4]
-            self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (idx, item[0], item[1].encode('utf-8'), item[2].encode('gbk'), str(r), item[4]))
+            if int(r) >= self.__rMin:
+              idx += 1
+              # print str(idx), item[0], item[1], item[2], str(r), item[4]
+              self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (idx, item[0], item[1].encode('utf-8'), item[2].encode('gbk'), str(r), item[4]))
 
       if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
         b = True

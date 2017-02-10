@@ -17,8 +17,8 @@ class CPGTracker:
     self.__Element = CWebElement(self.__Web.GetDriver())
     self.__PageNum = 0
     self.__CfgFilePath = CfgFilePath
-    self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
-    # self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '10.211.55.128')
+    # self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
+    self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
     self.__compress = CCompress()
 
   def __Login(self):
@@ -66,7 +66,7 @@ class CPGTracker:
       for r in revisions_s:
         if self.__CfgFilePath == 'XXSY.json':
             idx += 1
-            self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (?, ?, ?, ?, ?, ?);', (idx, item[0], item[1], item[2], r, item[4]))
+            self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (str(idx), str(item[0]), str(item[1]), str(item[2]), r, str(item[4])))
 
       if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
         b = True
@@ -120,7 +120,7 @@ class CPGSVN:
     self.__logItems = {}
     # self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
     self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
-    self.__cursor = self.__db.cursor()
+    self.__cursor = self.__db.cursor
     self.__GetLogs()
 
   def __GetLogs(self):
@@ -138,18 +138,18 @@ class CPGSVN:
       if int(item[0]) <= int(__max):
         continue
       print item[0]
-      self.__db.cursor.execute('select 1 from XXSY_SVNLog where revision=?', (item[0],))
+      self.__db.cursor.execute('select 1 from XXSY_SVNLog where revision=' + str(item[0]))
       try:
-        self.__cursor.fetchone():
+        self.__cursor.fetchone()
       except:
         pass
       else:
       # if not self.__db.cursor.fetchone():
         if self.__ss.GetSystemFlag() != 'Linux':
-          self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (?, ?, ?, ?)', (item[0], item[1], item[2], item[3].decode('gbk') if item[3] else ''))
+          self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (%s, %s, %s, %s)', (str(item[0]), str(item[1]), str(item[2]), str(item[3]).decode('gbk') if item[3] else ''))
         else:
           print item[3]
-          self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (?, ?, ?, ?)', (item[0], item[1], item[2], item[3] if item[3] else ''))
+          self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (%s, %s, %s, %s)', (str(item[0]), str(item[1]), str(item[2]), str(item[3]) if item[3] else ''))
     self.__db.Commit()
     self.__db.Close()
 

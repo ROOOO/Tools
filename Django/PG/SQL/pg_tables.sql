@@ -4,7 +4,7 @@ create table XXSY_URTracker (
 	revision int,
 	url varchar(50),
 	title text,
-	state varchar(20),
+	state varchar(100),
 	task varchar(50)
 );
 

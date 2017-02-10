@@ -28,7 +28,7 @@ class CWEB_SVN:
 
 	_min = db.cursor.execute('select min(revision) from XXSY_URTracker where state != "交付完成" order by revision;').fetchone()[0]
 	_max = db.cursor.execute('select max(revision) from XXSY_URTracker where state != "交付完成" order by revision;').fetchone()[0]
-	svn = CPG_SVN(self.CfgFilePath)
+	# svn = CPG_SVN(self.CfgFilePath)
 
 	if ss.GetSystemFlag() == 'Linux':
 		ss.KillProcess([cfg['Cookie']], [cfg['Cookie']])

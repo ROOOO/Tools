@@ -66,7 +66,8 @@ class CPGTracker:
       for r in revisions_s:
         if self.__CfgFilePath == 'XXSY.json':
             idx += 1
-            self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (str(idx), str(item[0]), str(item[1]), str(item[2]), r, str(item[4])))
+            # print str(idx), item[0], item[1], item[2], str(r), item[4]
+            self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (idx, item[0], item[1].encode('utf-8'), item[2].encode('gbk'), str(r), item[4]))
 
       if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
         b = True
@@ -146,7 +147,7 @@ class CPGSVN:
       else:
       # if not self.__db.cursor.fetchone():
         if self.__ss.GetSystemFlag() != 'Linux':
-          self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (%s, %s, %s, %s)', (str(item[0]), str(item[1]), str(item[2]), str(item[3]).decode('gbk') if item[3] else ''))
+          self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (%s, %s, %s, %s)', (str(item[0]), str(item[1]), str(item[2]), str(item[3]).encode('gbk') if item[3] else ''))
         else:
           print item[3]
           self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (%s, %s, %s, %s)', (str(item[0]), str(item[1]), str(item[2]), str(item[3]) if item[3] else ''))

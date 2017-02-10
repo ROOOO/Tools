@@ -25,7 +25,7 @@ SECRET_KEY = 'hbck*p)^&emt2-8vqg)9mk+&cp5m+$83z(ydu#n#+1l#gjib57'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,8 +83,8 @@ DATABASES = {
         'USER': 'king',
         'PASSWORD': 'wqlwqlwql',
         # 'HOST': '10.211.55.6',
-        # 'HOST': '138.68.62.86',
-        'HOST': '10.211.55.128',
+        'HOST': '108.61.200.192',
+        # 'HOST': '10.211.55.128',
     }
 }
 
@@ -125,8 +125,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/../static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
 ]
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder"
+)

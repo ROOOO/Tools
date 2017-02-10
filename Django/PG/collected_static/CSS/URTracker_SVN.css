@@ -1,0 +1,21 @@
+b
+{
+    font-family:'Comic Sans MS', 'Microsoft YaHei';
+}
+body
+{
+    font-family:'Microsoft YaHei';
+}
+.panel,.flip
+{
+    /*padding:3px;*/
+    font-family:'Comic Sans MS';
+    background-color:#fafafa;
+    border:solid 1px #c3c3c3;
+}
+.panel
+{
+    /*padding:50px;*/
+    background-color:#ffffff;
+    display:none;
+}

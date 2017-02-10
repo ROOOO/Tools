@@ -3,8 +3,8 @@ create table XXSY_URTracker (
 	id serial not null primary key,
 	revision int,
 	url varchar(50),
-	title varchar(100),
-	state varchar(20),
+	title text,
+	state varchar(100),
 	task varchar(50)
 );
 

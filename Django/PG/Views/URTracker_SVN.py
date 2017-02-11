@@ -31,7 +31,7 @@ def URTracker_SVN(request, CfgFilePath):
         pass
 
     blackList = []
-    db.cursor.execute('select revision, author, svnDate, log from XXSY_SVNLog where revision >= ' + str(cfg['Min']) + ' and revision not in (select revision from XXSY_URTracker);')
+    db.cursor.execute('select revision, author, svnDate, log from XXSY_SVNLog where author != \'xpc\' and revision >= ' + str(cfg['Min']) + ' and revision not in (select revision from XXSY_URTracker);')
     try:
         blackList = db.cursor.fetchall()
     except:

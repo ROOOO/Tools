@@ -132,12 +132,12 @@ class CPGSVN:
     self.__logs = self.__ss.RunProcess(u'svn log -r ' + str(self.__rMin) + ':' + 'HEAD' + ' ' + self.__svnPath, True)
     pattern = re.compile(self.Settings['RegExp']['SVN']['Re'], re.S)
     items = re.findall(pattern, self.__logs)
-    __max = self.__rMin
     try:
       self.__cursor.execute('select max(revision) from XXSY_SVNLog')
       __max = self.__cursor.fetchone()[0]
     except:
       pass
+    __max = __max if __max else self.__rMin
 
     for item in items:
       if int(item[0]) <= int(__max):

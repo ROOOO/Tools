@@ -19,7 +19,7 @@ def URTracker_SVN(request, CfgFilePath):
     db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
 
     testingList = []
-    db.cursor.execute('select url, title from XXSY_URTracker where state = \'分支验证\';')
+    db.cursor.execute('select distinct url, title from XXSY_URTracker where state = \'分支验证\';')
     try:
         testingList = db.cursor.fetchall()
     except:

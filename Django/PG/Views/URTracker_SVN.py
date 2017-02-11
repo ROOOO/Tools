@@ -23,6 +23,12 @@ def URTracker_SVN(request, CfgFilePath):
         testingList = db.cursor.fetchall()
     except:
         pass
+    modifyingList = []
+    db.cursor.execute('select distinct url, title from XXSY_URTracker where state = \'修改中\';')
+    try:
+        modifyingList = db.cursor.fetchall()
+    except:
+        pass
 
     blackList = []
     db.cursor.execute('select revision, author, svnDate, log from XXSY_SVNLog where revision >= ' + str(cfg['Min']) + ' and revision not in (select revision from XXSY_URTracker);')
@@ -64,6 +70,7 @@ def URTracker_SVN(request, CfgFilePath):
     rsp = {}
     rsp['title'] = cfg['Web']['Title']
     rsp['testingList'] = testingList
+    rsp['modifyingList'] = modifyingList
     rsp['blackList'] = blackList
     rsp['wrongList'] = wrongList
     rsp['modTime'] = modTime

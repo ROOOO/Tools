@@ -15,3 +15,9 @@ create table XXSY_SVNLog (
 	svnDate varchar(50),
 	log text
 );
+
+drop table if exists XXSY_Misc;
+create table XXSY_Misc (
+	id int not null primary key,
+	value text
+);

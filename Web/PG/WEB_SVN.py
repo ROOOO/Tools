@@ -18,7 +18,6 @@ class CWEB_SVN:
   def Run(self):
 	cfg = CSettings(self.CfgFilePath).Json()
 	ss = CSystem()
-	db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
 	cfg['Driver']['use'] = 1 if ss.GetSystemFlag() == 'Linux' else cfg['Driver']['use']
 
 	web = CPG_WEB(self.CfgFilePath)
@@ -26,9 +25,12 @@ class CWEB_SVN:
   		'URTracker_Branch' : cfg['URTracker']['Branch'],
   		})
 
-	_min = db.cursor.execute('select min(revision) from XXSY_URTracker where state != "交付完成" order by revision;').fetchone()[0]
-	_max = db.cursor.execute('select max(revision) from XXSY_URTracker where state != "交付完成" order by revision;').fetchone()[0]
 	svn = CPG_SVN(self.CfgFilePath)
+
+	db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
+	db.cursor.execute('update xxsy_misc set value = (select now()) where id = 1;')
+	db.Commit()
+    db.Close()
 
 	if ss.GetSystemFlag() == 'Linux':
 		ss.KillProcess([cfg['Cookie']], [cfg['Cookie']])

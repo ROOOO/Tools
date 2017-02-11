@@ -40,7 +40,7 @@ def URTracker_SVN(request, CfgFilePath):
         pass
 
     todoList = []
-    db.cursor.execute('select revision, task from XXSY_URTracker where state = \'等待交付运营商\';')
+    db.cursor.execute('select revision, task, url from XXSY_URTracker where state = \'等待交付运营商\';')
     try:
         todoList = db.cursor.fetchall()
     except:

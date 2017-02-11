@@ -4,12 +4,17 @@
     "version": "1.0",
     "description": "xxsy小黑账提醒",
     "browser_action": {
-        "default_title": "小黑账",
-        "default_popup": "popup.html"
+        "default_title": "小黑账"
+        // "default_popup": "popup.html"
     },
     "options_page": "option.html",
+    "background": {
+        "scripts": [
+            "js/background.js"
+        ]
+    },
     "permissions": [
         "*://108.61.200.192:*/",
-        "*://*/"
+        "notifications"
     ]
 }

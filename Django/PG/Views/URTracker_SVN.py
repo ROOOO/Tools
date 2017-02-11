@@ -13,7 +13,6 @@ from util.util import *
 sys.path.pop(len(sys.path) - 1)
 
 def URTracker_SVN(request, CfgFilePath):
-    ss = CSystem()
     cfg = CSettings(os.path.join(BASE_URL, 'Web', 'PG', CfgFilePath)).Json()
     # db = CDBSqlite(os.path.join(BASE_URL, 'Django', 'PG', 'db.sqlite3'))
     db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
@@ -52,13 +51,22 @@ def URTracker_SVN(request, CfgFilePath):
             if task not in todoListTask:
                 todoListTask.append(task)
     todoListTask.sort()
+
+    modTime = 0
+    db.cursor.execute('select value from xxsy_misc where id = 1;')
+    try:
+        modTime = db.cursor.fetchall()[0][0]
+    except:
+        pass
+
+    db.Close()
     
     rsp = {}
     rsp['title'] = cfg['Web']['Title']
     rsp['testingList'] = testingList
     rsp['blackList'] = blackList
     rsp['wrongList'] = wrongList
-    # rsp['modTime'] = ss.StrfTime(ss.GetFileTime('m', FILE) + 8 * 60 * 60)
+    rsp['modTime'] = modTime
     rsp['todoList'] = todoList
     rsp['todoListTask'] = '\t'.join(todoListTask)
 

@@ -140,7 +140,7 @@ class CPGSVN:
     __max = __max if __max else self.__rMin
 
     for item in items:
-      if int(item[0]) < int(__max):
+      if int(item[0]) < int(__max) and __max != self.__rMin:
         continue
       print item[0]
       self.__db.cursor.execute('select 1 from XXSY_SVNLog where revision=' + str(item[0]))

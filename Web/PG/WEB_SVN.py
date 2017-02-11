@@ -30,7 +30,7 @@ class CWEB_SVN:
 	db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
 	db.cursor.execute('update xxsy_misc set value = (select now()) where id = 1;')
 	db.Commit()
-    db.Close()
+	db.Close()
 
 	if ss.GetSystemFlag() == 'Linux':
 		ss.KillProcess([cfg['Cookie']], [cfg['Cookie']])

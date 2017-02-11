@@ -35,7 +35,13 @@
         </ul>
 
         <HR>
-        <p><b>测试/修改中：</b>
+        <p><b>"修改中"：</b>
+        <ul>
+            {% for i in modifyingList %}
+                <li><a href="http://proxy.pixelgame.net:8080/urtracker/Pts/{{ i.0 }}">{{ i.1 }}</a></li>
+            {% endfor %}
+        </ul>
+        <p><b>"分支验证"：</b>
         <ul>
             {% for i in testingList %}
                 <li><a href="http://proxy.pixelgame.net:8080/urtracker/Pts/{{ i.0 }}">{{ i.1 }}</a></li>

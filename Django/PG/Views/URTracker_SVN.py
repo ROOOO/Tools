@@ -38,7 +38,7 @@ def URTracker_SVN(request, CfgFilePath):
         pass
 
     wrongList = []
-    db.cursor.execute('select revision, url from XXSY_URTracker where revision not in (select revision from XXSY_SVNLog) and revision >= (select max(revision) from XXSY_SVNLog);')
+    db.cursor.execute('select revision, url from XXSY_URTracker where revision not in (select revision from XXSY_SVNLog) or revision > (select max(revision) from XXSY_SVNLog) or revision < ' + str(cfg['Min']) + ';')
     try:
         wrongList = db.cursor.fetchall()
     except:

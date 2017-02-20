@@ -18,6 +18,9 @@ class CWEB_SVN:
   def Run(self):
 	cfg = CSettings(self.CfgFilePath).Json()
 	ss = CSystem()
+	if ss.IsProcessRunning(cfg['Cookie']):
+		return
+		
 	cfg['Driver']['use'] = 1 if ss.GetSystemFlag() == 'Linux' else cfg['Driver']['use']
 
 	web = CPG_WEB(self.CfgFilePath)

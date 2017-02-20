@@ -58,7 +58,7 @@ class CPGTracker:
     items = re.findall(pattern1, src)
     pattern2 = re.compile(r',|，')
     b = False
-    self.__db.cursor.execute('select max(id) from XXSY_URTracker')
+    self.__db.cursor.execute('select max(id) from XXSY_URTracker;')
     idx = self.__db.cursor.fetchone()[0] or 0
     for item in items:
       # if idx > 10:
@@ -71,7 +71,7 @@ class CPGTracker:
             if int(r) >= self.__rMin:
               idx += 1
               print str(idx), item[0], item[1], item[2], str(r), item[4]
-              self.__db.cursor.execute('insert into XXSY_URTracker (id,  url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (idx, item[0], item[1].encode('utf-8'), item[2].encode('utf-8'), str(r), item[4]))
+              self.__db.cursor.execute('insert into XXSY_URTracker (id, url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (idx, item[0], item[1].encode('utf-8'), item[2].encode('utf-8'), str(r), item[4]))
 
       if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
         b = True
@@ -145,10 +145,8 @@ class CPGSVN:
       print item[0]
       self.__db.cursor.execute('select 1 from XXSY_SVNLog where revision=' + str(item[0]))
       try:
-        self.__cursor.fetchone()
+        self.__cursor.fetchone()[0]
       except:
-        pass
-      else:
       # if not self.__db.cursor.fetchone():
         if self.__ss.GetSystemFlag() != 'Linux':
           self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (%s, %s, %s, %s)', (str(item[0]), str(item[1]), str(item[2]), str(item[3]).decode('gbk') if item[3] else ''))

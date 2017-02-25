@@ -3,7 +3,7 @@
 		"Title" : "寻仙手游小黑账查询"
 	},
 	"Cookie" : "/tmp/xxsy",
-	"Min" : 56218,
+	"Min" : 58142,
 	"SVNPath" : {
 		"Trunk"		: "svn://bigsvr/xx/trunk",
 		"Branch"	: "svn://bigsvr/xx/branches/branch_201604"

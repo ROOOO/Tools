@@ -79,7 +79,7 @@ class CPGTracker:
     return b
 
   def GetRevisions(self):
-    self.__db.cursor.execute('delete from XXSY_URTracker where revision >= ' + self.__rMin)
+    self.__db.cursor.execute('delete from XXSY_URTracker;')
     HTMLs = []
     HTMLs.append(self.__Web.GetPageSource())
     pageIdx = 2

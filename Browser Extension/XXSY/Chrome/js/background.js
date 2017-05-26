@@ -42,8 +42,8 @@ function notification() {
 
 chrome.browserAction.onClicked.addListener(function(activeTab)
 {
-    var newURL = "http://108.61.200.192/xxsy/";
-    chrome.tabs.create({ url: newURL });
+    // var newURL = "http://108.61.200.192/xxsy/";
+    // chrome.tabs.create({ url: newURL });
 });
 
 function Init() {

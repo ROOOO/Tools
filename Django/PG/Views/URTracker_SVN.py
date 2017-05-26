@@ -18,7 +18,7 @@ def URTracker_SVN(request, CfgFilePath):
     db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
 
     testingList = []
-    db.cursor.execute('select distinct url, title from XXSY_URTracker where state = \'分支验证\';')
+    db.cursor.execute('select distinct url, title from XXSY_URTracker where state = \'产品验证\';')
     try:
         testingList = db.cursor.fetchall()
     except:
@@ -44,7 +44,7 @@ def URTracker_SVN(request, CfgFilePath):
     except:
         pass
     todoList = []
-    db.cursor.execute('select distinct revision, task, url from XXSY_URTracker where state = \'等待交付运营商\' order by revision;')
+    db.cursor.execute('select distinct revision, task, url from XXSY_URTracker where state = \'等待制作版本\' order by revision;')
     try:
         todoList = db.cursor.fetchall()
     except:

@@ -18,22 +18,21 @@ class CWEB_SVN:
   def Run(self):
 	cfg = CSettings(self.CfgFilePath).Json()
 	ss = CSystem()
-	if ss.IsProcessRunning(cfg['Cookie']):
-		return
-		
+        if ss.IsProcessRunning(cfg['Cookie']):
+                return
 	cfg['Driver']['use'] = 1 if ss.GetSystemFlag() == 'Linux' else cfg['Driver']['use']
 
 	web = CPG_WEB(self.CfgFilePath)
 	web.URTrackerCheck({
-  		'URTracker_Branch' : cfg['URTracker']['Branch'],
+  		'URTracker_Branch' : cfg['URTracker']['Branch'] + str(cfg['URTracker']['Project']),
   		})
 
 	svn = CPG_SVN(self.CfgFilePath)
 
-	db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
-	db.cursor.execute('update xxsy_misc set value = (select now()) where id = 1;')
-	db.Commit()
-	db.Close()
+        db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
+        db.cursor.execute('update xxsy_misc set value = (select now() + \'8 h\') where id = 1;')
+        db.Commit()
+        db.Close()
 
 	if ss.GetSystemFlag() == 'Linux':
 		ss.KillProcess([cfg['Cookie']], [cfg['Cookie']])

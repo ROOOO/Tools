@@ -42,12 +42,14 @@ class CPGTracker:
       return self.__Element.Find(self.__selfSettings['Buttons']['Numbers']['By'], self.__selfSettings['Buttons']['Numbers']['Arg']).Count()
 
   def __SortPage(self):
-    self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text1')")
-    self.__Web.WaitUntil('visibility_of_element_located', self.Settings['Buttons']['SortIconAsc']['By'], self.Settings['Buttons']['SortIconAsc']['Arg'])
+    self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text2')")
+    #self.__Web.WaitUntil('visibility_of_element_located', self.Settings['Buttons']['SortIconAsc']['By'], self.Settings['Buttons']['SortIconAsc']['Arg'])
+    self.__ss.Sleep(2)
     # self.__Web.WaitUntil('text_to_be_present_in_element', self.__selfSettings['Buttons']['Sort']['By'], self.__selfSettings['Buttons']['Sort']['Arg'], ' ')
-    self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text1')")
+    self.__Web.ExecScript("javascript:__doPostBack('ctl00$CP1$gvProblems','Sort$Text2')")
     # if self.Settings['Driver']['use'] == 2:
-    self.__Web.WaitUntil('visibility_of_element_located', self.Settings['Buttons']['SortIconDesc']['By'], self.Settings['Buttons']['SortIconDesc']['Arg'])
+    #self.__Web.WaitUntil('visibility_of_element_located', self.Settings['Buttons']['SortIconDesc']['By'], self.Settings['Buttons']['SortIconDesc']['Arg'])
+    self.__ss.Sleep(2)
     # else:
     #   self.__ss.Sleep(1)
     #   self.__Web.WaitUntil('invisibility_of_element_located', self.__selfSettings['Buttons']['WaitingPanel']['By'], self.__selfSettings['Buttons']['WaitingPanel']['Arg'])
@@ -63,15 +65,16 @@ class CPGTracker:
     for item in items:
       # if idx > 10:
       #   break
-      if item[3] == '' or item[3] == ' ' or item[3] == u'\xa0':
+      if item[4] == '' or item[4] == ' ' or item[4] == u'\xa0':
         continue
-      revisions_s = re.split(pattern2, item[3])
+      revisions_s = re.split(pattern2, item[4])
       for r in revisions_s:
         if self.__CfgFilePath == 'XXSY.json':
             if int(r) >= self.__rMin:
               idx += 1
-              print str(idx), item[0], item[1], item[2], str(r), item[4]
-              self.__db.cursor.execute('insert into XXSY_URTracker (id, url, title, state, revision, task) values (%s, %s, %s, %s, %s, %s);', (idx, item[0], item[1].encode('utf-8'), item[2].encode('utf-8'), str(r), item[4]))
+              # print str(idx), item[0], item[1], item[2], str(r), item[4]
+              print idx, item[0], item[1].encode('utf-8'), item[2].encode('utf-8'), str(r), item[6], str(self.Settings['URTracker']['Project'])
+              self.__db.cursor.execute('insert into XXSY_URTracker (id, url, title, state, revision, task, project) values (%s, %s, %s, %s, %s, %s, %s);', (idx, item[0], item[1].encode('utf-8'), item[2].encode('utf-8'), str(r), item[6], str(self.Settings['URTracker']['Project'])))
 
       if item[2] in self.Settings['RegExp']['Revisions']['States_NotEnd']: 
         b = True
@@ -79,7 +82,7 @@ class CPGTracker:
     return b
 
   def GetRevisions(self):
-    self.__db.cursor.execute('delete from XXSY_URTracker;')
+    self.__db.cursor.execute('delete from XXSY_URTracker where project = 0 or project =' + str(self.Settings['URTracker']['Project']))
     HTMLs = []
     HTMLs.append(self.__Web.GetPageSource())
     pageIdx = 2
@@ -90,7 +93,8 @@ class CPGTracker:
         numIdx = 8
       if not self.__RegRevisions(HTMLs[pageIdx - 2]):
         break
-      self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['NumberSelected']['By'], self.__selfSettings['Buttons']['NumberSelected']['Arg'][0] + str(pageIdx) + self.__selfSettings['Buttons']['NumberSelected']['Arg'][1])
+      time.sleep(3)
+      # self.__Web.WaitUntil('visibility_of_element_located', self.__selfSettings['Buttons']['NumberSelected']['By'], self.__selfSettings['Buttons']['NumberSelected']['Arg'][0] + str(pageIdx) + self.__selfSettings['Buttons']['NumberSelected']['Arg'][1])
       HTMLs.append(self.__Web.GetPageSource())
       pageIdx += 1
       numIdx += 1
@@ -124,7 +128,9 @@ class CPGSVN:
     self.__logs = ''
     self.__logItems = {}
     # self.__db = CDBSqlite(os.path.join(PROJ_DIR, 'Django', 'PG', 'db.sqlite3'))
+    print 1
     self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
+    print 2
     self.__cursor = self.__db.cursor
     self.__GetLogs()
 
@@ -142,16 +148,17 @@ class CPGSVN:
     for item in items:
       if int(item[0]) < int(__max) and __max != self.__rMin:
         continue
-      print item[0]
+      # print item[0]
       self.__db.cursor.execute('select 1 from XXSY_SVNLog where revision=' + str(item[0]))
       try:
         self.__cursor.fetchone()[0]
       except:
       # if not self.__db.cursor.fetchone():
         if self.__ss.GetSystemFlag() != 'Linux':
+          print(item[0])
           self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (%s, %s, %s, %s)', (str(item[0]), str(item[1]), str(item[2]), str(item[3]).decode('gbk') if item[3] else ''))
         else:
-          print item[3]
+          # print item[3]
           self.__db.cursor.execute('insert into XXSY_SVNLog (revision, author, svnDate, log) values (%s, %s, %s, %s)', (str(item[0]), str(item[1]), str(item[2]), str(item[3]) if item[3] else ''))
     self.__db.Commit()
     self.__db.Close()
@@ -161,7 +168,7 @@ class CPGDB:
     self.__ss = CSystem()
     self.__txtFile = self.__ss.ReadFile(os.path.join(PROJ_DIR, 'DBs', 'PG', txtFile))
     self.__db = CDBPostgresql('tools', 'king', 'wqlwqlwql', '108.61.200.192')
-    print self.__txtFile
+    # print self.__txtFile
 
   def Convert(self):
     pass

@@ -1,68 +1,73 @@
 {
-    "Web" : {
-        "Title" : "寻仙手游小黑账查询"
-    },
-    "Cookie" : "/tmp/xxsy",
-    "Min" : 68597,
-    "SVNPath" : {
-        "Trunk"         : "svn://bigsvr/xx/trunk",
-        "Branch"        : "svn://bigsvr/xx/branches/branch_201604"
-    },
-    "Driver" : {
-        "1" : "PhantomJS",
-        "2" : "chromedriver",
-        "use" : "2"
-    },
-    "URTracker" : {
-        "Home" : "http://192.168.5.143/urtracker/Pts/home.aspx",
-        "Branch" : "http://192.168.5.143/urtracker/Pts/ProjectHome.aspx?project=",
-        "Project" : 397
-    },
-    "Buttons" : {
-        "Tracking" : {
-            "By" : "XPATH",
-            "Arg" : "//a[@id='ctl00_CP1_tvNavt14']"
-        },
-        "SortIconAsc" : {
-            "By" : "XPATH",
-            "Arg" : "//table[@id=\"ctl00_CP1_gvProblems\"]//th/img[@src=\"../Images/sortAsc.gif\"]"
-        },
-        "SortIconDesc" : {
-            "By" : "XPATH",
-            "Arg" : "//table[@id=\"ctl00_CP1_gvProblems\"]//th/img[@src=\"../Images/sortdesc.gif\"]"
-        }
-    },
-    "RegExp" : {
-        "Revisions" : {
-            "Re" : "HyperLink1\" class=\"issue_link\" href=\"(.*?)\">(.*?)</a>.*?<td>.*?<span id.*?\">(.*?)</span>.*?</td><td>.*?</td><td>.*?</td><td>.*?</td><td style=.*?/span>.*?</td><td>.*?</td><td>(.*?)</td><td>.*?</td><td>.*?</td><td>.*?</td><td>(.*?)</td><td>.*?",
-            "States_On" : [
-                "制作中",
-                "分配测试",
-                "分支验证",
-                "修改中"
-            ],
-            "States_Off" : [
-                "等待交付运营商",
-                "交付完成"
-            ],
-            "States_Todo" : [
-                "等待交付运营商"
-            ],
-            "States_NotEnd" : [
-                "制作中",
-                "分配测试",
-                "分支验证",
-                "修改中",
-                "等待交付运营商"
-            ],
-            "States_Testing" : [
-                "分配测试",
-                "分支验证",
-                "修改中"
-            ]
-        },
-        "SVN" : {
-            "Re" : "r(\\d+)\\s\\W\\s(\\w+)\\s\\W\\s(.*?) \\+0800.*?\n\n(.*?)\n-"
-        }
-    }
+	"Web" : {
+		"Title" : "寻仙手游小黑账查询"
+	},
+	"Cookie" : "/tmp/xxsy",
+	"Min" : 68597,
+	"SVNPath" : {
+		"Trunk"		: "svn://bigsvr/xx/trunk",
+		"Branch"	: "svn://bigsvr/xx/branches/branch_201604"
+	},
+	"Driver" : {
+		"1" : "PhantomJS",
+		"2" : "chromedriver",
+		"use" : "2"
+	},
+	"URTracker" : {
+		"Home" : "http://192.168.5.143/urtracker/Pts/home.aspx",
+		"Branch" : "http://192.168.5.143/urtracker/Pts/ProjectHome.aspx?project=",
+		"Project" : 397
+	},
+	"Buttons" : {
+		"Tracking" : {
+			"By" : "XPATH",
+			"Arg" : "//a[@id='ctl00_CP1_tvNavt14']"
+		},
+		"SortIconAsc" : {
+			"By" : "XPATH",
+			"Arg" : "//table[@id=\"ctl00_CP1_gvProblems\"]//th/img[@src=\"../Images/sortAsc.gif\"]"
+		},
+		"SortIconDesc" : {
+			"By" : "XPATH",
+			"Arg" : "//table[@id=\"ctl00_CP1_gvProblems\"]//th/img[@src=\"../Images/sortdesc.gif\"]"
+		}
+	},
+	"RegExp" : {
+		"Revisions" : {
+                        "Re" : "HyperLink1\" class=\"issue_link\" href=\"(.*?)\">(.*?)</a>.*?<td>.*?<span id.*?\">(.*?)</span>(.*?</td><td>){8}(.*?)</td><td>(.*?</td><td>){4}(.*?)</td><td>.*?",
+			"States_On" : [
+				"制作中",
+                                "主管或组长复查",
+				"定版本号",
+				"等待分配测试",
+				"产品验证",
+				"修改中"
+			],
+			"States_Off" : [
+				"等待制作版本",
+				"版本制作",
+				"交付完成"
+			],
+			"States_Todo" : [
+				"等待制作版本"
+			],
+			"States_NotEnd" : [
+				"制作中",
+                                "主管或组长复查",
+				"定版本号",
+				"等待分配测试",
+				"产品验证",
+				"修改中",
+				"等待交付运营商"
+			],
+			"States_Testing" : [
+				"等待分配测试",
+				"产品验证",
+				"修改中"
+			]
+		},
+		"SVN" : {
+			"Re" : "r(\\d+)\\s\\W\\s(\\w+)\\s\\W\\s(.*?) \\+0800.*?\n\n(.*?)\n-"
+		}
+	}
 }
